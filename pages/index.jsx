@@ -6,7 +6,7 @@ import styles from '../styles/Home.module.scss'
 const Home = () => {
   return (
     <div >
-      <h1>Accueil</h1>
+      <h1>Accueil Test</h1>
     </div>
   )
 }
