@@ -1,0 +1,14 @@
+@import '../styles/variables.module.scss';
+
+.layout {
+    position: relative;
+    min-height: 100vh;
+}
+
+
+.content {
+    position: absolute;
+    top: calc($navbar-height + $marge);
+    left: calc($sidebar-width + $marge);
+    width: calc(100% - $sidebar-width - $marge * 2);
+}

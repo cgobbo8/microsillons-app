@@ -1,0 +1,16 @@
+@import '../../../styles/variables.module.scss';
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: $sidebar-width;
+    padding-left: $marge;
+    padding-bottom: $marge;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+}
