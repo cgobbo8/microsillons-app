@@ -9,9 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "axios": "^0.27.2",
+    "embla-carousel-autoplay": "^6.2.0",
+    "embla-carousel-react": "^6.2.0",
+    "flickity": "^3.0.0",
+    "moment": "^2.29.3",
     "next": "12.1.6",
+    "qs": "^6.10.3",
     "react": "18.1.0",
-    "react-dom": "18.1.0"
+    "react-dom": "18.1.0",
+    "react-flickity-component": "^3.6.2",
+    "react-markdown": "^8.0.3",
+    "react-moment": "^1.1.2"
   },
   "devDependencies": {
     "eslint": "8.15.0",

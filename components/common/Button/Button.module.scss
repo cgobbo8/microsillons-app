@@ -1,0 +1,32 @@
+
+.btn {
+    font-family: 'Poppins';
+    font-weight: 700;
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+    border-radius: 100px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    
+    display: flex;
+    align-items: center;
+
+    box-shadow: 3px 0 0px 0px #02000042;
+
+    &__image {
+        margin-right: 8px;
+        height: 24px;
+    }
+
+    &:hover {
+        transform: scale(.99);
+        box-shadow: 3px 0 10px 3px #02000042;
+    }
+
+    &:active {
+        transform: scale(.97);
+        box-shadow: 3px 0 20px 5px #02000042;
+    }
+}
