@@ -1,11 +1,13 @@
+import ReactMarkdown from "react-markdown"
+import styles from './Titletextbloc.module.scss'
 
+import { joinStyles } from "../../../utils"
 
 export const TitleTextBloc = ({title, text}) => {
-
     return (
-        <div className="">
-            <h3 className="t-2">{title}</h3>
-            <h3 className="p-2">{text}</h3>
+        <div className={styles.title_text_bloc}>
+            <h3 className={joinStyles(styles['title_text_bloc--title'], 't-2')}>{title}</h3>
+            <ReactMarkdown className={joinStyles(styles['title_text_bloc--text'], 'p-2')}>{text}</ReactMarkdown>
         </div>
     )
 }

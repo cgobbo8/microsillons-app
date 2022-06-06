@@ -56,7 +56,7 @@
 .embla__slide__inner {
     position: relative;
     overflow: hidden;
-    height: 500px;
+    height: 600px;
     border-radius: 12px;
     overflow: hidden;
 }
@@ -241,6 +241,7 @@
             color: #fff;
             background-color: $accent;
             border-radius: 1rem;
+            margin-left: 1rem;
         }
     }
 
@@ -252,4 +253,20 @@
     //     height: 100%;
     //     object-fit: cover;
     // }
+}
+
+.embla__slide {
+    cursor: pointer;
+
+    img {
+        transition: 1s cubic-bezier(.17,.67,.27,1.03);
+    }
+
+    &:hover {
+        img {
+            transform: scale(1.05);
+        }
+    }
+
+    
 }

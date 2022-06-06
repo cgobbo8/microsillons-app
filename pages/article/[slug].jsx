@@ -3,12 +3,33 @@ import ReactMarkdown from "react-markdown";
 import Seo from "../../components/bloc/seo";
 import { fetchAPI } from "../../lib/api";
 import { getStrapiMedia } from "../../lib/media";
+import styles from './Article.module.scss'
+import { createPortal } from "react-dom";
+import { useState, useEffect } from "react";
+import { useContext } from "react";
+import { GlobalContext } from "../_app";
 
 
 
 const Article = ({ article, categories }) => {
-    console.log(article);
   const imageUrl = getStrapiMedia(article.attributes.cover);
+
+  const {test} = useContext(GlobalContext)
+
+  console.log(('================================='));
+  console.log(test);
+
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+
+    console.log(('================================='));
+    console.log(('================================='));
+    console.log(test);
+    console.log(('================================='));
+    console.log(('================================='));
+  }, []);
 
   const seo = {
     metaTitle: article.attributes.titre,
@@ -17,9 +38,9 @@ const Article = ({ article, categories }) => {
     article: true,
   };
 
-  return (
+  return mounted && createPortal(
     //   <div></div>
-    <div >
+    <div className={styles.article} >
       <Seo seo={seo} />
       <div
         id="banner"
@@ -80,7 +101,7 @@ const Article = ({ article, categories }) => {
         </div>
       </div>
     </div>
-  );
+  , document.getElementById("root"));
 };
 
 export async function getStaticPaths() {
@@ -108,7 +129,7 @@ export async function getStaticProps({ params }) {
 
   return {
     props: { article: articlesRes.data[0], categories: categoriesRes },
-    revalidate: 1,
+    revalidate: 1000,
   };
 }
 

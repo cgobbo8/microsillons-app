@@ -1,13 +1,10 @@
 import { TitleTextBloc } from "../bloc/titletextbloc";
+import { Section } from "../common/Section";
 
 
 export const EmissionsSection = ({emissionsInfo, emissions}) => {
-    console.log('emissionsInfo : ');
-    console.log(emissionsInfo);
-    console.log('emissions : ');
-    console.log(emissions);
     return (
-        <section className="section">
+        <Section >
             <TitleTextBloc title={emissionsInfo.titre} text={emissionsInfo.texte} />
 
             {
@@ -22,6 +19,6 @@ export const EmissionsSection = ({emissionsInfo, emissions}) => {
             }
             
             {/* <ListBloc list={emissions.liste} /> */}
-        </section>
+        </Section>
     )
 }

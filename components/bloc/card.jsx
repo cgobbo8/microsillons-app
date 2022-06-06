@@ -3,7 +3,6 @@ import Link from "next/link";
 import ImagePerso from "./image";
 
 const Card = ({ article }) => {
-  console.log(article);
   return (
     // <div>test</div>
     <Link href={`/article/${article.attributes.slug}`}>

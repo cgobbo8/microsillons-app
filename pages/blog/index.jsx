@@ -6,7 +6,7 @@ import { fetchAPI } from "../../lib/api";
 const blog = ({ articles, categories, blog }) => {
     return (
         <div >
-          {/* <Seo seo={blog.attributes.seo} /> */}
+          <Seo seo={blog.attributes.seo} />
           <div className="uk-section">
             <div className="uk-container uk-container-large">
               <h1>{blog.attributes.titrePage}</h1>
@@ -36,7 +36,7 @@ export async function getStaticProps() {
         categories: categoriesRes.data,
         blog: blogRes.data,
       },
-      revalidate: 1,
+      revalidate: 1000,
     };
   }
 

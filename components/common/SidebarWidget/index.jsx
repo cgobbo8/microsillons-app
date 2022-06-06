@@ -1,6 +1,7 @@
 
 
 import { joinStyles } from '../../../utils';
+import { Countdown } from '../../component/Countdown';
 import { Disc } from '../../svgs';
 import styles from './SidebarWidget.module.scss'
 

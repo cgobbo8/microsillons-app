@@ -1,26 +1,32 @@
 import ImagePerso from "../bloc/image";
 import { TitleTextBloc } from "../bloc/titletextbloc";
+import { Section } from "../common/Section";
+import { useEffect, useState } from "react";
+import { Member } from "../component/Member";
+import { Team } from "../component/Team";
 
 
 export const EquipeSection = ({equipeInfo, equipe}) => {
-    console.log('equipeInfo : ');
-    console.log(equipeInfo);
+    let [equipeList, setEquipeList] = useState({});
+
+    useEffect(() => {
+        setEquipeList({})
+        equipe.forEach(membre => {
+            // get first letter of the firstname
+            let firstLetter = membre.attributes.prenom.charAt(0);
+            setEquipeList(prevState => {
+                return {
+                    ...prevState,
+                    [firstLetter]: [...prevState[firstLetter] || [], membre]
+                    }})
+        })
+
+    }, [equipe])
+    
     return (
-        <section className="section">
+        <Section>
             <TitleTextBloc title={equipeInfo.titre} text={equipeInfo.texte} />
-            {
-                equipe.map(membre => {
-                    return (
-                        <div className="membre" key={membre.id}>
-                            <p className="p-2">{membre.attributes.prenom}</p>
-                            <p className="p-2">{membre.attributes.nom}</p>
-                            <p className="p-2">{membre.attributes.poste}</p>
-                            <ImagePerso classProp={'mini'} image={membre.attributes.photo} />
-                        </div>
-                    )
-                })
-            }
-            {/* <ListBloc list={equipe.liste} /> */}
-        </section>
+            <Team team={equipeList} />
+        </Section>
     )
 }

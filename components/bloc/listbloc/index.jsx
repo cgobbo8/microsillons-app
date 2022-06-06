@@ -1,10 +1,9 @@
-
+import styles from './ListBloc.module.scss'
 
 export const ListBloc = ({list}) => {
     return (
-        <div className="">
-            { list.map(item => <p key={item.id}>{item.texte}</p> ) }
-                
-        </div>
+        <ul className={styles.list}>
+            { list.map(item => <li key={item.id} className={styles.list__text}>{item.texte}</li> ) }
+        </ul>
     )
 }

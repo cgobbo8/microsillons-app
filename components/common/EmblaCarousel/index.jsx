@@ -24,10 +24,6 @@ const EmblaCarousel = ({ slides }) => {
     )
   );
 
-  useEffect(() => {
-    console.log(slides);
-
-  }, [slides]);
 
   // const [emblaRef, emblaApi] = useEmblaCarousel(options, [autoplay.current]);
   const [viewportRef, embla] = useEmblaCarousel({ skipSnaps: false, loop: true }, [autoplay.current]);
@@ -103,8 +99,9 @@ const EmblaCarousel = ({ slides }) => {
         <div className="embla__viewport" ref={viewportRef}>
           <div className="embla__container">
             {slides.map((slide, index) => (
-              <div className="embla__slide" key={index}>
+              <div className="embla__slide" key={index} >
                 <div className="embla__slide__inner">
+                <Link className="embla__slide__link"  href={`/article/${slide.attributes.slug}`}>
                   <div
                     className="embla__slide__parallax"
                     style={{ transform: `translateX(${parallaxValues[index]}%)` }}
@@ -113,14 +110,13 @@ const EmblaCarousel = ({ slides }) => {
                       <div className="embla__slide__card__body">
                         <div className="embla__slide__card__body--title t-1">{slide.attributes.titre}</div>
                         <div className="embla__slide__card__body--description p-1">{sliceString(slide.attributes.description, 50)}</div>
-                        <Link href={`/article/${slide.attributes.slug}`}>
                           <ButtonSecondary className="embla__slide__card__body--btn">Voir l'article</ButtonSecondary>
-                        </Link>
                       </div>
                       <div className="embla__slide__card--categories">{slide.attributes?.podcast_types?.data.map(((type, index) => <span key={index} className="category">{type.attributes.type}</span>))}</div>
                       <ImagePerso classProp="embla__slide__card--background" image={slide.attributes.cover} />
                     </div>
                   </div>
+                </Link>
                 </div>
               </div>
             ))}

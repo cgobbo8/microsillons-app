@@ -1,0 +1,23 @@
+@import '../../../styles/variables.module.scss';
+
+.list {
+    display: flex;
+    list-style: none;
+    flex-direction: column;
+    margin-top: $espacement;
+    &__text {
+        background-color: $background-card;
+        margin-bottom: 8px;
+        padding: 1.5rem 2rem;
+        color: $text-light;
+        border-radius: 8px;
+        transition: .3s;
+        
+
+        &:hover {
+            background-color: $background-card-light;
+            transform: scale(1.01);
+            // box-shadow: 0 5px 20px 10px rgba(0, 0, 0, 0.07);
+        }
+    }
+}

@@ -1,13 +1,11 @@
 import { TitleTextBloc } from "../bloc/titletextbloc";
+import { Section } from "../common/Section";
 
 
 export const SeriesSection = ({seriesInfo, series}) => {
-    console.log('seriesInfo : ');
-    console.log(seriesInfo);
-    console.log('series : ');
-    console.log(series);
+
     return (
-        <section className="section">
+        <Section>
             <TitleTextBloc title={seriesInfo.titre} text={seriesInfo.texte} />
 
             {
@@ -22,6 +20,6 @@ export const SeriesSection = ({seriesInfo, series}) => {
             }
             
             {/* <ListBloc list={series.liste} /> */}
-        </section>
+        </Section>
     )
 }

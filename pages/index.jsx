@@ -8,21 +8,15 @@ import { EquipeSection } from "../components/sections/equipeSection";
 import { RadioSection } from "../components/sections/radio";
 import { SeriesSection } from "../components/sections/series";
 import { fetchAPI } from "../lib/api";
+import { motion } from "framer-motion";
 
 const SLIDE_COUNT = 5;
 const slides = Array.from(Array(SLIDE_COUNT).keys());
 
 const Home = ({ articles, slides, categories, homepage, emissions, series, equipe }) => {
-  console.log(homepage.attributes);
-  console.log("emission : ");
-  console.log(emissions);
-  console.log("series : ");
-  console.log(series);
-  console.log("equipe : ");
-  console.log(equipe);
   return (
-    <div >
-      <Seo seo={homepage.attributes.seo} />
+    <motion.div exit={{opacity : 0}}>
+      <Seo seo={{...homepage.attributes.seo, title : homepage.attributes.titrePage }} />
       <div className="uk-section">
         <div className="uk-container uk-container-large">
           {/* <h1>{homepage.attributes.titrePage}</h1> */}
@@ -36,7 +30,7 @@ const Home = ({ articles, slides, categories, homepage, emissions, series, equip
           {/* <Articles articles={articles} /> */}
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
 
@@ -84,7 +78,7 @@ export async function getStaticProps() {
       series: seriesRes.data,
       equipe: equipesRes.data,
     },
-    revalidate: 1,
+    revalidate: 1000,
   };
 }
 

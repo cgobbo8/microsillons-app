@@ -1,0 +1,132 @@
+@import '../../../styles/variables.module.scss';
+
+.countdown {
+    display: flex;
+    cursor: pointer;
+
+    line-height: 5rem;
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+
+        font-family: 'Poppins';
+        font-size: 4rem;
+        font-weight: 600;
+    }
+
+
+
+    &__number {
+        color: $accent;
+        // font-family: 'Poppins';
+        // font-size: 4rem;
+        // font-weight: 600;
+        // color: $text-title;
+        // margin-left: 1rem;
+    }
+}
+
+
+.enLive {
+    position: relative;
+    display: flex;
+    padding: 1rem 1.5rem;
+    background-color: $accent;
+    border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+
+    font-family: 'Poppins';
+
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+
+    &:hover {
+        transform: scale(.98);
+    }
+    
+}
+
+.noLive {
+    position: relative;
+    display: flex;
+    padding: 1rem 1.5rem;
+    background-color: $background-card;
+    color: #c0c0c0;
+    border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+
+    font-family: 'Poppins';
+
+    font-weight: 700;
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+
+    &:hover {
+        transform: scale(.98);
+    }
+    
+}
+
+.spinner {
+    margin-right: 32px;
+
+    &__center {
+        position: absolute;
+        transform: translate(-50%, -50%);
+
+        height: 8px;
+        width: 8px;
+        border-radius: 50%;
+        background-color: #fff;
+    }
+}
+
+.spinner::before,
+.spinner::after {
+    content: '';
+    border-radius: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+
+.spinner::before {
+    width: 26px;
+    height: 26px;
+    // background-color: red;
+    animation: spinner-1 1.6s infinite linear -.6s;
+    border: 4px solid #fff;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+}
+
+.spinner::after {
+    width: 14px;
+    height: 14px;
+    // background-color: red;
+    animation: spinner-1 1.6s infinite linear;
+    border: 4px solid #fff;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+}
+
+@keyframes spinner-1 {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1.4);
+        opacity: 0;
+    }
+}

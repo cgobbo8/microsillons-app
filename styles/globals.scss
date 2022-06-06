@@ -15,6 +15,15 @@ body {
     overflow-x: hidden;
 }
 
+#root {
+  position: relative;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow: hidden;
+}
+
 html {
   font-size: 14px;
 }
@@ -108,4 +117,34 @@ a {
 .mini {
   height: 20px !important;
   width: 20px !important;
+}
+
+.nav_link.active {
+  color: #fff;
+  &::before {
+    clip-path: circle(140% at 100% 100%);
+  }
+  
+}
+
+img {
+  transition: 1s cubic-bezier(.17,.67,.27,1.03);
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

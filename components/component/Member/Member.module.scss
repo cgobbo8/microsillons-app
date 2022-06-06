@@ -1,0 +1,45 @@
+@import '../../../styles/variables.module.scss';
+
+.member {
+    display: flex;
+    height: 160px;
+    width: 100%;
+    background-color: $background-card;
+    border-radius: 12px;
+    // justify-content: space;
+    align-items: center;
+
+    &__image {
+        position: relative;
+        height: calc(100% - 2 * $espacement);
+        width: 100px;
+        margin-left: 24px;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: $espacement;
+        // margin-top: 30px;
+
+    }
+
+    &__infos {
+
+        &__name {
+            font-family: 'Poppins';
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: $text-title;
+        }
+
+        &__job {
+            font-family: 'Poppins';
+            font-weight: 500;
+            color: $text-paragraph;
+        }
+    }
+
+    img {
+        height: 100px;
+        width: 100px;
+    }
+    
+}

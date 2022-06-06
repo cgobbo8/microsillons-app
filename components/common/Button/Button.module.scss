@@ -13,7 +13,7 @@
     display: flex;
     align-items: center;
 
-    box-shadow: 3px 0 0px 0px #02000042;
+    background-color: #fff;
 
     &__image {
         margin-right: 8px;
@@ -22,11 +22,9 @@
 
     &:hover {
         transform: scale(.99);
-        box-shadow: 3px 0 10px 3px #02000042;
     }
 
     &:active {
         transform: scale(.97);
-        box-shadow: 3px 0 20px 5px #02000042;
     }
 }
