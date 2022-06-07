@@ -8,3 +8,4 @@ export const Disc = ({color = "#1D1D1D"}) => {
         </svg>
     )
 }
+

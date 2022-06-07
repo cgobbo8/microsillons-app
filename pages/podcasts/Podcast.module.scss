@@ -1,0 +1,61 @@
+@import '../../styles/variables.module.scss';
+
+.podcast__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    &--image {
+        height: 500px;
+        margin-bottom: -80px;
+    }
+
+    &__message {
+        font-size: 2rem;
+        font-weight: 700;
+        width: 600px;
+        text-align: center;
+
+        &--accent {
+            color: $accent;
+        }
+    }
+
+    &__soundcloud {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        margin-top: 40px;
+        &--button {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 4px 12px;
+            cursor: pointer;
+            transition: .4s;
+            margin-left: 12px;
+
+            box-shadow: 0 4px 8px 0 rgba(173, 73, 11, 0.03);
+
+            &:hover {
+                transform: scale(.98);
+                box-shadow: 0 4px 12px 0 rgba(173, 73, 11, 0.06);
+            }
+            &:active {
+                transform: scale(.96);
+                box-shadow: 0 4px 12px 0 rgba(173, 73, 11, 0.09);
+            }
+
+            img {
+                height: 32px;
+                margin-right: 12px;
+            }
+        }
+    }
+}

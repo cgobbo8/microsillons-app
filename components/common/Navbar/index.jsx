@@ -22,13 +22,16 @@ export const Navbar = () => {
             </div>
             <div className={styles.header__nav}>
                 <ul className={styles.header__nav__links}>
-                    <li  className={`nav_link ${styles.header__nav__link} ${router.route == '/' ? 'active' : ''}`}>
-                        <Link onClick={(e) => handleNavigate(e, "/")} href="/">Accueil</Link>
+                    <li onClick={(e) => handleNavigate(e, "/")}  className={`nav_link ${styles.header__nav__link} ${router.route == '/' ? 'active' : ''}`}>
+                        <Link  href="/">Accueil</Link>
                     </li>
-                    <li className={styles.header__nav__link}>
+                    {/* <li className={styles.header__nav__link}>
                         <Link href="https://soundcloud.com/micro-sillons"><a target='_blank' rel="noreferrer">Podcasts</a></Link>
+                    </li> */}
+                    <li onClick={(e) => handleNavigate(e, "/podcasts")} className={`nav_link ${styles.header__nav__link} ${router.route.includes('/podcasts') ? 'active' : ''}`}>
+                        <Link href="/podcasts">Podcasts</Link>
                     </li>
-                    <li onClick={(e) => handleNavigate(e, "/blog")} className={`nav_link ${styles.header__nav__link} ${router.route == '/blog' ? 'active' : ''}`}>
+                    <li onClick={(e) => handleNavigate(e, "/blog")} className={`nav_link ${styles.header__nav__link} ${router.route.includes('/blog') ? 'active' : ''}`}>
                         <Link href="/blog">Blog</Link>
                     </li>
                     <li className={styles.header__nav__link}>

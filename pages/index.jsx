@@ -8,14 +8,13 @@ import { EquipeSection } from "../components/sections/equipeSection";
 import { RadioSection } from "../components/sections/radio";
 import { SeriesSection } from "../components/sections/series";
 import { fetchAPI } from "../lib/api";
-import { motion } from "framer-motion";
 
 const SLIDE_COUNT = 5;
 const slides = Array.from(Array(SLIDE_COUNT).keys());
 
 const Home = ({ articles, slides, categories, homepage, emissions, series, equipe }) => {
   return (
-    <motion.div exit={{opacity : 0}}>
+    <div>
       <Seo seo={{...homepage.attributes.seo, title : homepage.attributes.titrePage }} />
       <div className="uk-section">
         <div className="uk-container uk-container-large">
@@ -30,7 +29,7 @@ const Home = ({ articles, slides, categories, homepage, emissions, series, equip
           {/* <Articles articles={articles} /> */}
         </div>
       </div>
-    </motion.div>
+    </div>
   )
 }
 
@@ -40,9 +39,13 @@ export async function getStaticProps() {
   // Run API calls in parallel
   const [articlesRes, slidesRes, categoriesRes, homepageRes, emissionsRes, seriesRes, equipesRes] = await Promise.all([
     fetchAPI("/articles", { populate: "*" }),
-    fetchAPI("/articles", { pagination: {
-      pageSize: 4,
-    }, populate: "*" }),
+    fetchAPI("/articles", { 
+      pagination: {
+        pageSize: 4
+      }, 
+      populate: "*",
+      sort: "publishedAt:DESC"
+     }),
     fetchAPI("/podcast-types", { populate: "*" }),
     fetchAPI("/homepage", {
       populate: {
@@ -78,7 +81,7 @@ export async function getStaticProps() {
       series: seriesRes.data,
       equipe: equipesRes.data,
     },
-    revalidate: 10000,
+    revalidate: 1,
   };
 }
 

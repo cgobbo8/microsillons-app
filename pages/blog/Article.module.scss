@@ -1,0 +1,29 @@
+@import '../../styles/variables.module.scss';
+
+.article {
+    position: absolute;
+    top: calc($navbar-height + $marge * 2);
+    left: calc($sidebar-width + $marge);
+    width: calc(100% - $sidebar-width - $espacement * 2);
+    // overflow: hidden;
+    background-color: white;
+    // z-index: 100;
+    padding: $espacement;
+    border-radius: 24px;
+
+    &::before {
+        content: "";
+        background-color: $accent;
+        position: absolute;
+        top: -24px;
+        height: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        z-index: -1;
+        border-radius: 24px;
+        opacity: 0.2;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+}

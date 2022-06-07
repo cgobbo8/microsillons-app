@@ -10,7 +10,6 @@ body {
   margin: 0;
   font-family: 'Poppins', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-    font-family: 'Roboto Flex', sans-serif;
     background-color: $background-color;
     overflow-x: hidden;
 }
@@ -147,4 +146,8 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.hide {
+  opacity: 0;
 }

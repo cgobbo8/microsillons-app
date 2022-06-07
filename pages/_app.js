@@ -18,24 +18,22 @@ function MyApp({ Component, pageProps }) {
 
 
   return (
-    <AnimatePresence exitBeforeEnter>
-      <>
-        <Head>
-          <link
-            rel="shortcut icon"
-            href={getStrapiMedia(global.attributes.favicon)}
-          />
-        </Head>
+    <>
+      <Head>
+        <link
+          rel="shortcut icon"
+          href={getStrapiMedia(global.attributes.favicon)}
+        />
+      </Head>
 
-        <GlobalContext.Provider value={global.attributes} test='test'>
-          <TransitionContextProvider>
-            <Layout live={live}>
-              <Component {...pageProps} />
-            </Layout>
-          </TransitionContextProvider>
-        </GlobalContext.Provider>
-      </>
-    </AnimatePresence>
+      <GlobalContext.Provider value={global.attributes} test='test'>
+        <TransitionContextProvider>
+        <Layout live={live}>
+            <Component {...pageProps} />
+          </Layout>
+        </TransitionContextProvider>
+      </GlobalContext.Provider>
+    </>
   )
 }
 

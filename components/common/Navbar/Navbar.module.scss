@@ -8,7 +8,7 @@
     background-color: $background-color-blur;
     backdrop-filter: saturate(180%) blur(20px);
     // border-bottom: rgba(0,0,0,0.16) 1px solid;
-    z-index: 2;
+    z-index: 10000000;
     height: $navbar-height;
 
     display: flex;

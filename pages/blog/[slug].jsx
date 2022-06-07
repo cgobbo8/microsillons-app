@@ -8,28 +8,55 @@ import { createPortal } from "react-dom";
 import { useState, useEffect } from "react";
 import { useContext } from "react";
 import { GlobalContext } from "../_app";
+import { joinStyles } from "../../utils";
+import gsap from "gsap";
+import { TransitionContext } from "../../contexts/TransitionContext";
+import ImagePerso from "../../components/bloc/image";
 
 
 
 const Article = ({ article, categories }) => {
   const imageUrl = getStrapiMedia(article.attributes.cover);
 
-  const {test} = useContext(GlobalContext)
-
-  console.log(('================================='));
-  console.log(test);
+  const {reinitTransition, backTo} = useContext(TransitionContext);
 
   const [mounted, setMounted] = useState(false);
+  const [transitionOk, setTransitionOk] = useState(false);
+
+  const tl = gsap.timeline({paused : true});
 
   useEffect(() => {
+    
     setMounted(true);
 
-    console.log(('================================='));
-    console.log(('================================='));
-    console.log(test);
-    console.log(('================================='));
-    console.log(('================================='));
+    reinitTransition();
+    
+
+
+    setTimeout(() => {
+      gsap.set(".article__container", {
+        opacity: 1,
+        y: 1000,
+        scale: 0.9,
+        ease: "power2.inOut",
+      });
+  
+      tl.to(".article__container", {
+        duration: 0.7,
+        opacity: 1,
+        // slide down
+        y: 0,
+        scale : 1,
+        ease: "power2.inOut",
+      });
+
+      setTransitionOk(true);
+    }, 1);
   }, []);
+
+  useEffect(() => {
+    tl.play();
+  }, [transitionOk]);
 
   const seo = {
     metaTitle: article.attributes.titre,
@@ -38,21 +65,20 @@ const Article = ({ article, categories }) => {
     article: true,
   };
 
+  const close = () => {
+    backTo()
+  };
+
   return mounted && createPortal(
     //   <div></div>
-    <div className={styles.article} >
+    <div className={`${joinStyles(styles.article, 'article__container')} ${transitionOk ? '' : 'hide'}`} >
       <Seo seo={seo} />
-      <div
-        id="banner"
-        className="uk-height-medium uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light uk-padding uk-margin"
-        data-src={imageUrl}
-        data-srcset={imageUrl}
-        data-uk-img
-      >
-        <h1>{article.attributes.title}</h1>
-      </div>
+      {JSON.stringify(article)}
       <div className="uk-section">
         <div className="uk-container uk-container-small">
+          <button onClick={close}>Fermer</button>
+      {/* <ImagePerso image={article.attributes.cover} /> */}
+        <h1>{article.attributes.title}</h1>
             {
                 article.attributes.sections.map( (section, index) => {
                     switch (section.__component) {
@@ -129,7 +155,7 @@ export async function getStaticProps({ params }) {
 
   return {
     props: { article: articlesRes.data[0], categories: categoriesRes },
-    revalidate: 10000,
+    revalidate: 1,
   };
 }
 

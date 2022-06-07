@@ -218,8 +218,17 @@
         }
 
         &--description {
-            margin-top: 1rem;
+            margin-top: 0rem;
             font-size: 1.2rem !important;
+        }
+
+        &--date {
+            font-weight: 500;
+            color: $accent;
+            // italic
+            font-style: italic;
+            // opacity: .8;
+            // margin-bottom: 1rem;
         }
 
         &--btn {
@@ -239,7 +248,8 @@
             font-weight: 500;
             font-family: 'Poppins';
             color: #fff;
-            background-color: $accent;
+            background-color: rgba(168, 168, 168, 0.187);
+            backdrop-filter: blur(10px);
             border-radius: 1rem;
             margin-left: 1rem;
         }
@@ -265,6 +275,12 @@
     &:hover {
         img {
             transform: scale(1.05);
+        }
+    }
+
+    &:active {
+        img {
+            transform: scale(1.1);
         }
     }
 
