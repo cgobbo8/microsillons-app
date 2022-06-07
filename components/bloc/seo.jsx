@@ -3,23 +3,28 @@ import { useContext } from "react";
 import { getStrapiMedia } from "../../lib/media";
 import { GlobalContext } from "../../pages/_app";
 
-const Seo = ({ seo }) => {
+const Seo = ({ seo, favicon }) => {
   const { defaultSeo, nomSite } = useContext(GlobalContext);
   const seoWithDefaults = {
     ...defaultSeo,
-    ...seo,
+    ...seo
   };
-  console.log(seoWithDefaults);
+
   const fullSeo = {
     ...seoWithDefaults,
-    // Add title suffix
     metaTitle: `${seoWithDefaults.metaTitle} | ${nomSite}`,
-    // Get full image URL
     shareImage: getStrapiMedia(seoWithDefaults.shareImage),
   };
 
+
   return (
     <Head>
+
+      {favicon && <link
+        rel="shortcut icon"
+        href={getStrapiMedia(favicon)}
+      />}
+
       {fullSeo.metaTitle && (
         <>
           <title>{fullSeo.metaTitle}</title>

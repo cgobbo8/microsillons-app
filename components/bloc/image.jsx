@@ -5,8 +5,10 @@ import { useEffect, useState } from "react";
 import { getStrapiMedia } from "../../lib/media";
 
 const ImagePerso = ({ image, classProp }) => {
+
+  // console.log(image);
   
-  const { alternativeText, width, height } = image.data.attributes;
+  // const { alternativeText, width, height } = image?.data?.attributes;
 
   // const [blurDataURL, setBlurDataURL] = useState(null);
 
@@ -31,7 +33,7 @@ const ImagePerso = ({ image, classProp }) => {
       objectFit="cover"
       loader={() => getStrapiMedia(image)}
       src={getStrapiMedia(image)}
-      alt={alternativeText || ""}
+      alt={'alternativeText' || ""}
     />
   );
 };

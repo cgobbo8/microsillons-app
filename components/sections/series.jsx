@@ -1,5 +1,8 @@
 import { TitleTextBloc } from "../bloc/titletextbloc";
+import { Divider } from "../common/Divider";
+import { GridBloc } from "../common/GridBloc";
 import { Section } from "../common/Section";
+import { SerieComponent } from "../component/SerieComponent";
 
 
 export const SeriesSection = ({seriesInfo, series}) => {
@@ -7,17 +10,17 @@ export const SeriesSection = ({seriesInfo, series}) => {
     return (
         <Section>
             <TitleTextBloc title={seriesInfo.titre} text={seriesInfo.texte} />
+            <Divider />
+            <GridBloc>
+                {
+                    series.map(serie => {
+                        return (
+                            <SerieComponent key={serie.id} serie={serie} />
+                        )
+                    })
+                }
+            </GridBloc>
 
-            {
-                series.map(serie => {
-                    return (
-                        <div className="serie" key={serie.id}>
-                            <h3 className="t-4">{serie.attributes.titre}</h3>
-                            <h3 className="p-2">{serie.attributes.description}</h3>
-                        </div>
-                    )
-                })
-            }
             
             {/* <ListBloc list={series.liste} /> */}
         </Section>

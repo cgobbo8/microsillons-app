@@ -35,7 +35,7 @@ export const Layout = ({ children, live }) => {
         });
 
         setTransitionOk(true);
-    });
+    }), [];
 
     useEffect(() => {
         tl.play();
@@ -58,6 +58,20 @@ export const Layout = ({ children, live }) => {
 
                     </div>
             }
+            {/* <div className={styles.contact}>
+                <div className={styles.contact__container}>
+                    <div className={styles.contact__container__left}>
+                    </div>
+                    <div className={styles.contact__container__right}>
+                        <form>
+                            <input type="text" placeholder='Objet'/>
+                            <textarea name="body" id="body" cols="30" rows="10"></textarea>
+                            <button>Envoyer</button>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div> */}
             
         </div>
     );

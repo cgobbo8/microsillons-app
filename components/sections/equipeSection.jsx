@@ -4,6 +4,7 @@ import { Section } from "../common/Section";
 import { useEffect, useState } from "react";
 import { Member } from "../component/Member";
 import { Team } from "../component/Team";
+import { Divider } from "../common/Divider";
 
 
 export const EquipeSection = ({equipeInfo, equipe}) => {
@@ -26,6 +27,7 @@ export const EquipeSection = ({equipeInfo, equipe}) => {
     return (
         <Section>
             <TitleTextBloc title={equipeInfo.titre} text={equipeInfo.texte} />
+            <Divider />
             <Team team={equipeList} />
         </Section>
     )

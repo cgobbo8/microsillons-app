@@ -1,0 +1,85 @@
+@import '../../../styles/variables.module.scss';
+
+.card {
+    position: relative;
+    padding: $espacement;
+    background-color: $background-card;
+    border-radius: 24px;
+
+    &__top {
+        position: relative;
+        width: 100%;
+        display: flex;
+        margin-bottom: $espacement;
+
+        &--left {
+            position: relative;
+            // height: 80px;
+            width: 80px;
+            background-color: #fff;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 5px 12px 2px rgba(0, 0, 0, 0.05);
+            margin-right: $espacement;
+            aspect-ratio: 1;
+        }
+
+        &__info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 100%;
+
+            &--header {
+                display: flex;
+                
+                width: 100%;
+                margin-bottom: 8px;
+            }
+
+
+            &--title {
+                font-size: 1.4rem;
+                font-weight: 600;
+            }
+
+            &--tags {
+                display: flex;
+                color: $text-paragraph;
+            }
+
+            &--tag {
+                display: flex;
+                align-items: center;
+                &::after {
+                    display: block;
+                    content: '';
+                    height: 6px;
+                    width: 6px;
+                    background-color: $accent;
+                    position: relative;
+                    margin: 0 6px;
+                    border-radius: 100%;
+                }
+
+                &:last-child::after {
+                    display: none;
+                }
+            }
+
+            &--type {
+                padding: 8px 12px;
+                background-color: rgba(53, 53, 53, 0.079);
+                backdrop-filter: blur(2px);
+                border-radius: 12px;
+                font-size: .9rem;
+                font-weight: 600;
+                margin-left: $espacement;
+            }
+        }
+    }
+
+    &__text {
+        color: $text-paragraph;
+    }
+}

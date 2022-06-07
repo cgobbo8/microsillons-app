@@ -12,25 +12,29 @@ import { joinStyles } from "../../utils";
 import gsap from "gsap";
 import { TransitionContext } from "../../contexts/TransitionContext";
 import ImagePerso from "../../components/bloc/image";
-
+import NextImage from 'next/image'
+import 'moment/locale/fr'
+import { ButtonSecondary } from "../../components/common/Button";
 
 
 const Article = ({ article, categories }) => {
   const imageUrl = getStrapiMedia(article.attributes.cover);
 
-  const {reinitTransition, backTo} = useContext(TransitionContext);
+  console.log(article);
+
+  const { reinitTransition, backTo } = useContext(TransitionContext);
 
   const [mounted, setMounted] = useState(false);
   const [transitionOk, setTransitionOk] = useState(false);
 
-  const tl = gsap.timeline({paused : true});
+  const tl = gsap.timeline({ paused: true });
 
   useEffect(() => {
-    
+
     setMounted(true);
 
     reinitTransition();
-    
+
 
 
     setTimeout(() => {
@@ -40,13 +44,13 @@ const Article = ({ article, categories }) => {
         scale: 0.9,
         ease: "power2.inOut",
       });
-  
+
       tl.to(".article__container", {
         duration: 0.7,
         opacity: 1,
         // slide down
         y: 0,
-        scale : 1,
+        scale: 1,
         ease: "power2.inOut",
       });
 
@@ -70,52 +74,57 @@ const Article = ({ article, categories }) => {
   };
 
   return mounted && createPortal(
-    //   <div></div>
     <div className={`${joinStyles(styles.article, 'article__container')} ${transitionOk ? '' : 'hide'}`} >
       <Seo seo={seo} />
-      {JSON.stringify(article)}
-      <div className="uk-section">
-        <div className="uk-container uk-container-small">
-          <button onClick={close}>Fermer</button>
-      {/* <ImagePerso image={article.attributes.cover} /> */}
-        <h1>{article.attributes.title}</h1>
-            {
-                article.attributes.sections.map( (section, index) => {
-                    switch (section.__component) {
-                        case "bloc.texte-enrichi":
-                            return <ReactMarkdown key={index}>{section.texte}</ReactMarkdown>
-                        case "bloc.image":
-                            return <img key={index} src="http://random.imagecdn.app/1920/1080" alt={section.legende} />                 
-                        default:
-                            return <div key={index} className="test">test</div>
-                            break;
-                    }
-                })
-            }
-          <ReactMarkdown>{article.attributes.content}</ReactMarkdown>
-          <hr className="uk-divider-small" />
-          <div className="uk-grid-small uk-flex-left" data-uk-grid="true">
-            <div>
-              {article.attributes.auteur.data.attributes.avatar && (
-                <img
-                  src={getStrapiMedia(
-                    article.attributes.auteur.data.attributes.avatar
-                  )}
-                  alt={
-                    article.attributes.auteur.data.attributes.avatar.data
-                      .attributes.alternativeText
-                  }
-                  style={{
-                    position: "static",
-                    borderRadius: "20%",
-                    height: 60,
-                  }}
-                />
-              )}
-            </div>
-            <div className="uk-width-expand">
-              <p className="uk-margin-remove-bottom">
-                By {article.attributes.auteur.data.attributes.prenom} {article.attributes.auteur.data.attributes.nom}
+      <div className={styles.article__container}>
+        <div className={styles.article__container__cover}>
+          <button className={styles['article__container__cover--close']} onClick={close}>
+            <div className="bar"></div>
+            <div className="bar"></div>
+          </button>
+          <div className={styles['article__container__cover--overlay']}></div>
+          <ImagePerso image={article.attributes.cover} layout="fill" objectFit="cover" className={styles['article__container__cover--image']} src={getStrapiMedia(article.attributes.cover)} alt="" />
+
+          <div className={styles.article__container__cover__bloc}>
+            <span className={styles['article__container__cover__bloc__top']}>
+              <h1 className={styles['article__container__cover__bloc__top--title']}>{article.attributes.titre}</h1>
+              <span className={styles['article__container__cover__bloc__top--date']}>Il y a <Moment fromNow ago locale="fr">{article.attributes.publishedAt}</Moment></span>
+            </span>
+            <div className={styles['article__container__cover__bloc--categories']}>{article.attributes?.podcast_types?.data.map(((type, index) => <span key={index} className={styles['article__container__cover__bloc--category']}>{type.attributes.type}</span>))}</div>
+          </div>
+          {/* <ImagePerso className={styles['article__container__cover--image']} image={article.attributes.cover} /> */}
+        </div>
+
+        <div className={styles.article__content}>
+          {
+            article.attributes.sections.map((section, index) => {
+              switch (section.__component) {
+                case "bloc.texte-enrichi":
+                  return <ReactMarkdown key={index}>{section.texte}</ReactMarkdown>
+                case "bloc.image":
+                  break;
+                  // return <ImagePerso image={section} />
+                  // return <div>{JSON.stringify(section)}</div>
+                  // return <img key={index} src="http://random.imagecdn.app/1920/1080" alt={section.legende} />
+                default:
+                  return <div key={index} className="test">test</div>
+                  break;
+              }
+            })
+          }
+        </div>
+        <div className={styles.article__author} >
+          <div className={styles['article__author--picture']}>
+            {article.attributes.auteur.data.attributes.avatar && (
+              <ImagePerso
+                image={article.attributes.auteur.data.attributes.avatar}
+              />
+            )}
+          </div>
+          <div className={styles.article__author__info}>
+            <div className={styles.article__author__info__bloc}>
+              <p  className="uk-margin-remove-bottom">
+                Ecrit par <span className={styles['article__author__info__bloc--accent']}>{article.attributes.auteur.data.attributes.prenom} {article.attributes.auteur.data.attributes.nom}</span>
               </p>
               <p className="uk-text-meta uk-margin-remove-top">
                 <Moment format="MMM Do YYYY">
@@ -123,11 +132,12 @@ const Article = ({ article, categories }) => {
                 </Moment>
               </p>
             </div>
+            <ButtonSecondary>Consulter les articles de cet auteur</ButtonSecondary>
           </div>
         </div>
       </div>
     </div>
-  , document.getElementById("root"));
+    , document.getElementById("root"));
 };
 
 export async function getStaticPaths() {
@@ -148,14 +158,13 @@ export async function getStaticProps({ params }) {
     filters: {
       slug: params.slug,
     },
-    // populate: "*",
-    populate: ["cover", "podcast_type", "auteur.avatar", "sections"],
+    populate: ["cover", "podcast_types", "auteur.avatar", "sections"],
   });
   const categoriesRes = await fetchAPI("/podcast-types");
 
   return {
     props: { article: articlesRes.data[0], categories: categoriesRes },
-    revalidate: 1,
+    revalidate: 100,
   };
 }
 

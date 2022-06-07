@@ -14,7 +14,7 @@ function MyApp({ Component, pageProps }) {
 
   const { global, live } = pageProps;
 
-  console.log(global);
+  console.log(global.attributes.favicon);
 
 
   return (

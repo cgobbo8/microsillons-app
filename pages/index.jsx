@@ -81,7 +81,7 @@ export async function getStaticProps() {
       series: seriesRes.data,
       equipe: equipesRes.data,
     },
-    revalidate: 1,
+    revalidate: 100, 
   };
 }
 
