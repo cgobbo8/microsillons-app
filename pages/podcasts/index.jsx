@@ -4,7 +4,6 @@ import { fetchAPI } from '../../lib/api';
 import Seo from '../../components/bloc/seo';
 
 const podcasts = ( {page}) => {
-    console.log(page);
     return (
         <div className={styles.podcast__container}>
             <Seo seo={page.attributes.seo} favicon={page.attributes.favicon} />

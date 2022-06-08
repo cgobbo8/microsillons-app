@@ -1,0 +1,21 @@
+@import '../../styles/variables.module.scss';
+
+.blog {
+    display: flex;
+    flex-direction: column;
+
+    &__hero {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: flex-start;
+
+        &__most_recent {
+            width: 100%;
+            margin-right: $espacement;
+        }
+        
+        &__authors {
+        }
+    }
+}

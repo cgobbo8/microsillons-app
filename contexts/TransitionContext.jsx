@@ -16,14 +16,18 @@ export function TransitionContextProvider({children}) {
     const [loading, isLoading] = useState(false);
     const [currentRoute, setCurrentRoute] = useState(null);
     const [isBack, setIsBack] = useState(false);
+    const [preventLayoutTransition, setPreventLayoutTransition] = useState(false);
     const router = useRouter();
 
     const transitionTo = (path, route) => {
 
+        setPreventLayoutTransition(true);
+
         const tl = gsap.timeline();
 
         setCurrentRoute(route);
-
+        console.log("transitioning");
+        
         tl.to(".layout__content__transition", {
             duration: 0.7,
             y: '120vh',
@@ -31,6 +35,7 @@ export function TransitionContextProvider({children}) {
             ease: "power2.inOut",
             onComplete: () => {
                 router.push(path);
+                console.log("transitioned", path);
             }
         });
 
@@ -60,14 +65,16 @@ export function TransitionContextProvider({children}) {
 
     const reinitTransition = () => {
 
-        const tl = gsap.timeline();
+        setPreventLayoutTransition(false);
+        // const tl = gsap.timeline();
 
-        tl.to(".layout__content__transition", {
-            duration: 0.7,
-            y: '0',
-            scale : 1,
-            ease: "power2.inOut",
-        });
+
+        // tl.to(".layout__content__transition", {
+        //     duration: 0.7,
+        //     y: '0',
+        //     scale : 1,
+        //     ease: "power2.inOut",
+        // });
 
     };
 
@@ -81,7 +88,9 @@ export function TransitionContextProvider({children}) {
             reinitTransition,
             backTo,
             isBack,
-            setIsBack
+            setIsBack,
+            preventLayoutTransition,
+            setPreventLayoutTransition,
             }}>
             {children}
         </TransitionContext.Provider>

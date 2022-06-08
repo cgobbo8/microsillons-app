@@ -6,12 +6,10 @@ import { useRouter } from 'next/router'
 
 export const Navbar = () => {
     const router = useRouter()
-    console.log(router.route);
 
     const handleNavigate = (e, route = "/") => {
         e.preventDefault()
         e.stopPropagation()
-        console.log(route);
         // router.push(route)
     }
     

@@ -1,0 +1,49 @@
+@import '../../../styles/variables.module.scss';
+
+
+.authors {
+    &__component {
+        width: 300px;
+    }
+
+    &--title {
+        margin-bottom: $espacement;
+
+        &--accent {
+            color: $accent;
+        }
+    }
+}
+
+
+.author {
+    display: flex;
+    align-items: center;
+
+    background-color: $background-card;
+    margin-bottom: 8px;
+    padding: calc($espacement / 4);
+    border-radius: 12px;
+
+    transition: .4s;
+
+    &:hover {
+        background-color: $background-card-hover;
+        transform: scale(1.02);
+    }
+
+    &--picture {
+        position: relative;
+        height: 32px;
+        width: 32px;
+        background-color: red;
+        border-radius: 8px;
+        overflow: hidden;
+        margin-right: $espacement;
+    }
+
+    &--info {
+        display: flex;
+        font-weight: 600;
+    }
+}

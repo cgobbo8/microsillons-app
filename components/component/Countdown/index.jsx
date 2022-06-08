@@ -14,8 +14,6 @@ export const Countdown = ({ live }) => {
     useEffect(() => {
         let start = new Date(live.debut_live);
         let end = new Date(live.fin_live);
-        console.log(start);
-        console.log(end);
         
 
         let countdown = setInterval(function() {

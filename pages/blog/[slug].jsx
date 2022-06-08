@@ -20,7 +20,6 @@ import { ButtonSecondary } from "../../components/common/Button";
 const Article = ({ article, categories }) => {
   const imageUrl = getStrapiMedia(article.attributes.cover);
 
-  console.log(article);
 
   const { reinitTransition, backTo } = useContext(TransitionContext);
 

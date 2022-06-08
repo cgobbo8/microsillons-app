@@ -1,0 +1,24 @@
+@import '../../../styles/variables.module.scss';
+
+
+.recentArticles {
+
+    &__component {
+        
+    }
+
+    &--title {
+        margin-bottom: $espacement;
+
+        &--accent {
+            color: $accent;
+        }
+    }
+
+    &__articles {
+        display: grid;
+
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 8px;
+    }
+}

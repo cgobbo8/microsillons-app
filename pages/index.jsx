@@ -16,8 +16,8 @@ const Home = ({ articles, slides, categories, homepage, emissions, series, equip
   return (
     <div>
       <Seo seo={{...homepage.attributes.seo, title : homepage.attributes.titrePage }} />
-      <div className="uk-section">
-        <div className="uk-container uk-container-large">
+      <div className="">
+        <div className="">
           {/* <h1>{homepage.attributes.titrePage}</h1> */}
           {/* <CarouselArticles /> */}
           <EmblaCarousel slides={slides} />

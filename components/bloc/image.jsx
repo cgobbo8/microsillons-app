@@ -6,7 +6,6 @@ import { getStrapiMedia } from "../../lib/media";
 
 const ImagePerso = ({ image, classProp }) => {
 
-  // console.log(image);
   
   // const { alternativeText, width, height } = image?.data?.attributes;
 

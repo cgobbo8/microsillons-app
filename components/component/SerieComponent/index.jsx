@@ -3,7 +3,6 @@ import styles from './SerieComponent.module.scss'
 
 export const SerieComponent = ({serie}) => {
 
-    console.log(serie);
 
     return (
         <div className={styles.card}>

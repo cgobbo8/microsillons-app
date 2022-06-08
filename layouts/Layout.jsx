@@ -11,31 +11,39 @@ import gsap from 'gsap';
 
 export const Layout = ({ children, live }) => {
     
-    const { loading, isBack, setIsBack } = useContext(TransitionContext);
+    const { loading, preventLayoutTransition, isBack, setIsBack } = useContext(TransitionContext);
     const [transitionOk, setTransitionOk] = useState(false);
 
-
-    const tl = gsap.timeline({paused : true});
-
-    useEffect(() => {
-
-        gsap.set(".layout__content__transition", {
-            opacity: 1,
-            y: 1000,
-            scale: 0.9,
-            ease: "power2.inOut",
-        });
     
-        tl.to(".layout__content__transition", {
-            duration: 0.7,
-            opacity: 1,
-            y: 0,
-            scale : 1,
-            ease: "power2.inOut",
-        });
+    const tl = gsap.timeline({paused : true});
+    
+    useEffect(() => {
+        setTransitionOk(false)
 
-        setTransitionOk(true);
-    }), [];
+        console.log("transition layout");
+        console.log("preventLayoutTransition", preventLayoutTransition);
+
+        if (!preventLayoutTransition) {
+            tl.set(".layout__content__transition", {
+                opacity: 1,
+                y: 1000,
+                scale: 0.9,
+                ease: "power2.inOut",
+            });
+        
+            tl.to(".layout__content__transition", {
+                duration: 0.7,
+                opacity: 1,
+                y: 0,
+                scale : 1,
+                ease: "power2.inOut",
+            });
+
+            setTransitionOk(true);
+
+        }
+        
+    }), [setTransitionOk];
 
     useEffect(() => {
         tl.play();

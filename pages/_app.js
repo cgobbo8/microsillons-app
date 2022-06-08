@@ -1,5 +1,6 @@
 import { Layout } from '../layouts/Layout'
 import '../styles/globals.scss'
+import '../styles/flickity.scss'
 import App from "next/app";
 import Head from "next/head";
 import { createContext } from "react";
@@ -14,7 +15,6 @@ function MyApp({ Component, pageProps }) {
 
   const { global, live } = pageProps;
 
-  console.log(global.attributes.favicon);
 
 
   return (
