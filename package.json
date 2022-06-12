@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postbuild": "next-sitemap"
   },
   "dependencies": {
     "axios": "^0.27.2",
@@ -18,6 +19,7 @@
     "moment": "^2.29.3",
     "moment-timezone": "^0.5.34",
     "next": "12.1.6",
+    "next-sitemap": "^3.0.5",
     "plaiceholder": "^2.3.0",
     "qs": "^6.10.3",
     "react": "18.1.0",
