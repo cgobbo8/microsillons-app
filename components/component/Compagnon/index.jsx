@@ -6,7 +6,6 @@ import styles from './Compagnon.module.scss'
 
 
 export const Compagnon = ({compagnon}) => {
-    console.log(compagnon);
     return (
             <a href={compagnon.attributes.url} target="_blank" rel="noreferrer" className={styles.compagnon} >
                 <div className={styles.compagnon__image}><img src={compagnon.attributes.logo.data.attributes.url} /></div>

@@ -2,10 +2,10 @@ import Link from 'next/link'
 
 export default function Page404() {
   return <>
-    <h1>404 - Page Not Found</h1>
+    <h1>Cette page n'existe pas</h1>
     <Link href="/">
       <a>
-        Go back home
+        Revenir à l'accueil
       </a>
     </Link>
   </>

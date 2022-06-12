@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { cloneElement, useCallback, useEffect } from 'react';
 import { useContext } from 'react';
 import { Navbar } from '../components/common/Navbar';
 import { Sidebar } from '../components/common/Sidebar';
@@ -11,6 +11,7 @@ import ImagePerso from '../components/bloc/image';
 import { SocialIcon } from 'react-social-icons';
 import Link from 'next/link';
 import { CloseButton } from '../components/common/CloseButton';
+import { slide as Menu } from 'react-burger-menu'
 
 
 export const Layout = ({ children, live, planning, global }) => {
@@ -19,20 +20,12 @@ export const Layout = ({ children, live, planning, global }) => {
     const [transitionOk, setTransitionOk] = useState(false);
     const [planningOpen, setPlanningOpen] = useState(false);
     const [contactOpen, setContactOpen] = useState(false);
-    const [xy, setXY] = useState({ x: 0, y: 0 });
 
-    console.log(global);
-
-    console.log("PLANNNIIIIIING");
-    console.log(planning);
     
     const tl = gsap.timeline({paused : true});
     
     useEffect(() => {
         setTransitionOk(false)
-
-        console.log("transition layout");
-        console.log("preventLayoutTransition", preventLayoutTransition);
 
         if (!preventLayoutTransition) {
             tl.set(".layout__content__transition", {
@@ -62,12 +55,10 @@ export const Layout = ({ children, live, planning, global }) => {
     }, [preventLayoutTransition]);
 
     const openPlanning = useCallback(() => {
-        console.log("openPlanning");
         setPlanningOpen(true);
     }, [setPlanningOpen]);
 
     const closePlanning = useCallback(() => {
-        console.log("closePlanning");
         setPlanningOpen(false);
     }, [setPlanningOpen]);
 
@@ -77,24 +68,35 @@ export const Layout = ({ children, live, planning, global }) => {
     });
 
     const openContact = useCallback(() => {
-        console.log("openContact");
         setContactOpen(true);
     })
 
     const closeContact = useCallback(() => {
-        console.log("closeContact");
         setContactOpen(false);
     })
 
 
     return (
         <div id='root' className={styles.layout}>
+            
+
             <div className={styles.layout__container}>
                 <Navbar openPlanning={openPlanning} openContact={openContact} />
+                <span className={styles.hamb_menu}>
+                    <Menu elastic>
+                        <a id="home" className="menu-item" href="/">Accueil</a>
+                        <a id="about" className="menu-item" href="/podcasts">Podcasts</a>
+                        <a id="contact" className="menu-item" href="/blog">Blog</a>
+                    </Menu>
+                </span>
                 
                 <Sidebar live={live} className={styles.sidebar} />
                 <main  className={`${joinStyles(styles.content, 'layout__content__transition')} ${transitionOk ? '' : 'hide'}`} >
-                    {children}
+                {
+                    cloneElement(children, {
+                        openContact: openContact
+                    })
+                }
                 </main>
             </div>
 

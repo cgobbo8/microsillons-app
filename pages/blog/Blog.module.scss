@@ -10,12 +10,31 @@
         justify-content: space-between;
         align-items: flex-start;
 
+        transition: .4s ease;
+        @media screen and (max-width: 800px) {
+            flex-direction: column;
+            align-items: center;
+        
+        }
+
         &__most_recent {
             width: 100%;
             margin-right: $espacement;
+
+            transition: .4s ease;
+            @media screen and (max-width: 800px) {
+                margin-right: 0;
+                margin-bottom: calc($espacement*2);
+            
+            }
         }
         
         &__authors {
+
+            transition: .4s ease;
+            @media screen and (max-width: 800px) {
+                width: 100%;
+            }
         }
     }
 }

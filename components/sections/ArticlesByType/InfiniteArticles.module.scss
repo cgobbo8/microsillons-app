@@ -8,6 +8,11 @@
     align-items: center;
     margin-top: 5rem;
     width: 80%;
+
+    transition: .4s ease;
+    @media screen and (max-width: 800px) {
+        width: 100%;
+    }
     
     :global {
         .important {
@@ -51,6 +56,11 @@
             width: 156px;
             border-radius: 20px;
             overflow: hidden;
+
+            transition: .4s ease;
+                @media screen and (max-width: 500px) {
+                    display: none;
+                }
         }
 
         &__info {
@@ -67,6 +77,11 @@
                 font-weight: 600;
                 font-size: 1.2rem;
                 color: $accent;
+
+                transition: .4s ease;
+                @media screen and (max-width: 600px) {
+                    display: none;
+                }
             }
 
             &--title {
@@ -81,11 +96,21 @@
                 background-color: $accent;
                 border-radius: 100px;
                 margin: 8px 0;
+
+                transition: .4s ease;
+                @media screen and (max-width: 600px) {
+                    display: none;
+                }
             }
 
             &--date {
                 display: flex;
                 align-items: center;
+
+                transition: .4s ease;
+                @media screen and (max-width: 600px) {
+                    display: none;
+                }
 
                 &--date {
                     font-weight: 600;

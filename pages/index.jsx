@@ -11,9 +11,8 @@ import { SeriesSection } from "../components/sections/series";
 import { fetchAPI } from "../lib/api";
 
 
-const Home = ({ articles, slides, categories, homepage, emissions, series, equipe, compagnons }) => {
+const Home = ({ articles, slides, categories, homepage, emissions, series, equipe, compagnons, openContact }) => {
 
-  console.log(compagnons);
   return (
     <div>
       <Seo seo={{...homepage.attributes.seo, title : homepage.attributes.titrePage }} />
@@ -22,7 +21,7 @@ const Home = ({ articles, slides, categories, homepage, emissions, series, equip
           {/* <h1>{homepage.attributes.titrePage}</h1> */}
           {/* <CarouselArticles /> */}
           <EmblaCarousel slides={slides} />
-          <AssociationSection association={homepage.attributes.association_bloc} />
+          <AssociationSection association={homepage.attributes.association_bloc} onClick={openContact} />
           <RadioSection radio={homepage.attributes.radio_bloc} />
           <EmissionsSection emissionsInfo={homepage.attributes.emissions_bloc} emissions={emissions} />
           <SeriesSection seriesInfo={homepage.attributes.series_bloc} series={series} />

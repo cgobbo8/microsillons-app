@@ -3,7 +3,6 @@ import styles from './AuthorBlog.module.scss'
 import Link from 'next/link';
 
 export const Author = ({ author }) => {
-    console.log(author);
     
     return (
         <Link href={{ 

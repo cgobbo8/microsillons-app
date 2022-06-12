@@ -4,6 +4,12 @@
 .authors {
     &__component {
         width: 300px;
+
+        transition: .4s ease;
+            @media screen and (max-width: 800px) {
+                width: 100%;
+            
+            }
     }
 
     &--title {

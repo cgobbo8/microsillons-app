@@ -7,7 +7,6 @@ import { useRouter } from 'next/router'
 export const Navbar = ({openPlanning, openContact}) => {
     const router = useRouter()
 
-    console.log(openPlanning);
 
     const handleNavigate = (e, route = "/") => {
         e.preventDefault()
@@ -17,6 +16,7 @@ export const Navbar = ({openPlanning, openContact}) => {
     
     return (
         <div className={styles.header}>
+            
             <div className={styles.header__logo}>
                 <Image src={logo} alt="logo" />
             </div>

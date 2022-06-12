@@ -20,7 +20,6 @@ const Card = ({ article }) => {
   return (
     // <div>test</div>
     <a onClick={(e) => handleOpenBlog(e, article.attributes.slug)} href={`/blog/${article.attributes.slug}`}>
-      <a className="uk-link-reset">
         <div className="uk-card uk-card-muted">
           <div className="uk-card-media-top">
             <ImagePerso image={article.attributes.cover} />
@@ -42,7 +41,6 @@ const Card = ({ article }) => {
             </p>
           </div>
         </div>
-      </a>
     </a>
   );
 };

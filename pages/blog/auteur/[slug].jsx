@@ -11,9 +11,6 @@ import style from './AuthorPage.module.scss'
 
 const AuteurPage = ({ articles, author, blog }) => {
 
-  // console.log(articles);
-  console.log(author);
-
 
   return (
     <div className={style.author_page} >

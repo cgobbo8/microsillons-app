@@ -16,8 +16,14 @@
     }
     
     &__full {
+
+        transition: .4s ease;
+        @media screen and (max-width: 600px) {
+            grid-column: 1;
         
-        grid-column: 1/4;
+        }
+        
+        grid-column: 1 / 4;
         height: 300px;
         border-radius: $espacement;
         overflow: hidden;
@@ -92,6 +98,12 @@
             padding: $espacement;
             color: #fff;
             z-index: 100;
+            
+            transition: .4s ease;
+            @media screen and (max-width: 800px) {
+                text-align: center;
+            
+            }
 
             &::before {
                 content: '';

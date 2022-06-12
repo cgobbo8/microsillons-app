@@ -9,10 +9,17 @@
     padding-left: $marge;
     padding-bottom: $marge;
 
+    
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: calc(100vh - calc($navbar-height + $marge + 16px));
+
+    transition: .4s ease;
+
+    @media screen and (max-width: 1200px) {
+        left: -$sidebar-width;
+    }
 
     &__up {
         & > * {

@@ -16,7 +16,6 @@ export const ArticleByType = ({ articles, categories }) => {
 
     const handleCategorySelected = async (category) => {
         setCategorySelected(category);
-        console.log(category);
         if (category) {
             const res = await fetchAPI("/articles", {
                 populate: "*", 
@@ -31,7 +30,6 @@ export const ArticleByType = ({ articles, categories }) => {
                 },
                 sort: "publishedAt:DESC" })
     
-            console.log(res);
             setArticlesToShow(res.data);
         } else {
             setArticlesToShow(articles);

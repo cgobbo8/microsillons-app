@@ -26,7 +26,6 @@ export function TransitionContextProvider({children}) {
         const tl = gsap.timeline();
 
         setCurrentRoute(route);
-        console.log("transitioning");
         
         tl.to(".layout__content__transition", {
             duration: 0.7,
@@ -35,7 +34,6 @@ export function TransitionContextProvider({children}) {
             ease: "power2.inOut",
             onComplete: () => {
                 router.push(path);
-                console.log("transitioned", path);
             }
         });
 

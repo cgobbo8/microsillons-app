@@ -4,4 +4,8 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 8px;
+
+    @media screen and (max-width: 900px) {
+        grid-template-columns: 1fr;
+    }
 }

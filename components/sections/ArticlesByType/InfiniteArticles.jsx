@@ -37,7 +37,6 @@ export const InfiniteArticles = ({ articles, categorySelected, authorSlug = null
 
         let filters = {}
 
-        console.log(authorSlug);
 
         if (categorySelected) {
             filters = {
@@ -68,7 +67,6 @@ export const InfiniteArticles = ({ articles, categorySelected, authorSlug = null
             sort: "publishedAt:DESC"
         })
 
-        console.log(res);
 
         let lengthAfter = [...articlesToShow, ...res.data].length;
 

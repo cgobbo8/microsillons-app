@@ -103,13 +103,23 @@
     right: 0;
     background-color: $background-color-blur;
     backdrop-filter: saturate(180%) blur(20px);
-    // border-bottom: rgba(0,0,0,0.16) 1px solid;
+
+    // @media screen and (max-width: 650px) {
+    //     backdrop-filter: none;
+    // }
+
     z-index: 2;
     height: $navbar-height;
 
     display: flex;
     padding-left: $sidebar-width;
     padding-right: $marge;
+
+    transition: .4s ease;
+
+    @media screen and (max-width: 1200px) {
+        padding-left: 120px;
+    }
 }
 
 .header__logo {
@@ -117,6 +127,10 @@
     left: $marge;
     top: 50%;
     transform: translateY(-50%);
+
+    @media screen and (max-width: 650px) {
+        display: none;
+    }
 }
 
 .header__nav {
@@ -125,6 +139,11 @@
     justify-content: space-between;
     padding-left: $marge;
     width: 100%;
+    @media screen and (max-width: 650px) {
+        justify-content: flex-end;
+    }
+
+    
 }
 
 .header__nav__links {
@@ -132,6 +151,9 @@
     align-items: center;
     justify-content: flex-start;
     list-style: none;
+    @media screen and (max-width: 650px) {
+        display: none;
+    }
 }
 
 .header__nav__widget {

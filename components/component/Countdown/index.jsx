@@ -56,7 +56,6 @@ export const Countdown = ({ live }) => {
             let distanceEnd = end - now;
             let distanceStart = start - now;
 
-            // console.log(now);
             if (distanceEnd > 0 && distanceStart < 0) {
                 setIsLive(true);
             } else {
