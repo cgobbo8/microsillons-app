@@ -1,6 +1,9 @@
-Sitemap: https://microsillons.fr/api/posts-sitemap
-
+# *
 User-agent: *
-Allow: /*
+Allow: /
 
-Disallow: /api/*
+# Host
+Host: https://microsillons-app.vercel.app
+
+# Sitemaps
+Sitemap: https://microsillons-app.vercel.app/sitemap.xml
