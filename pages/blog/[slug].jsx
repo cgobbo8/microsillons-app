@@ -86,7 +86,7 @@ const Article = ({ article, categories }) => {
 
           <div className={styles.article__container__cover__bloc}>
             <span className={styles['article__container__cover__bloc__top']}>
-              <h1 className={styles['article__container__cover__bloc__top--title']}>{article.attributes.titre}</h1>
+              <h1 className={styles['article__container__cover__bloc__top--title']}>{article?.attributes?.titre}</h1>
               <span className={styles['article__container__cover__bloc__top--date']}>Il y a <Moment fromNow ago locale="fr">{article.attributes.publishedAt}</Moment></span>
             </span>
             <div className={styles['article__container__cover__bloc--categories']}>{article.attributes?.podcast_types?.data.map(((type, index) => <span key={index} className={styles['article__container__cover__bloc--category']}>{type.attributes.type}</span>))}</div>
@@ -96,7 +96,7 @@ const Article = ({ article, categories }) => {
 
         <div className={styles.article__content}>
           {
-            article.attributes.sections.map((section, index) => {
+            article?.attributes?.sections?.map((section, index) => {
               switch (section.__component) {
                 case "bloc.texte-enrichi":
                   return <ReactMarkdown key={index}>{section.texte}</ReactMarkdown>
@@ -112,7 +112,7 @@ const Article = ({ article, categories }) => {
             })
           }
         </div>
-        <AuthorSignature author={article.attributes.auteur} article={article} isBlogPost />
+        <AuthorSignature author={article?.attributes?.auteur} article={article} isBlogPost />
       </div>
     </div>
     , document.getElementById("root"));

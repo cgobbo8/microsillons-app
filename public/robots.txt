@@ -1,9 +1,3 @@
 # *
 User-agent: *
 Allow: /
-
-# Host
-Host: https://microsillons-app.vercel.app
-
-# Sitemaps
-Sitemap: https://microsillons-app.vercel.app/sitemap.xml
