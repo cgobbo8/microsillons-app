@@ -1,0 +1,6 @@
+Sitemap: https://microsillons.fr/api/posts-sitemap
+
+User-agent: *
+Allow: /*
+
+Disallow: /api/*

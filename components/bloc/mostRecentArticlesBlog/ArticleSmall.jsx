@@ -6,7 +6,10 @@ import { joinStyles } from '../../../utils';
 
 export const ArticleSmall = ({ article }) => {
     return (
-        <Link href={`/blog/${article.attributes.slug}`}>
+        <Link href={{
+            pathname: '/blog/[slug]',
+            query: { slug: article.attributes.slug }
+            }}>
             <a className={joinStyles(styles.article__small, styles.article)} href={`/blog/${article.attributes.slug}`}>
                 <div className={styles['article__small--cover']}>
                     <ImagePerso image={article.attributes.cover} />

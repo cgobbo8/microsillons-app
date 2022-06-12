@@ -3,15 +3,271 @@
 .layout {
     position: relative;
     min-height: 100vh;
-    // transform: scale(.96);
-    // opacity: 0.2;
-    // pointer-events: none;
 }
 
 
 .content {
-    position: absolute;
+    position: relative;
     top: calc($navbar-height + $marge);
     left: calc($sidebar-width + $marge);
     width: calc(100% - $sidebar-width - $marge * 2);
+}
+
+.blur_overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(133, 133, 133, 0.2   );
+    backdrop-filter: blur(5px);
+    z-index: 100;
+    overflow: auto;
+    cursor: pointer;
+    transition: .7s ease;
+
+    &--close {
+        opacity: 0;
+        pointer-events: none;
+        transition-delay: .7s;
+    }
+    
+    &--open {
+        transition-delay: 0s;
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    &--planning {
+
+        &--image {
+            width: 100%;
+        }
+        // position: relative;
+        position: absolute;
+        top: 200px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80vw;
+        img {
+            object-fit: contain !important;
+            object-position: top;
+        }
+        overflow: hidden;
+        border-radius: 20px;
+        overflow: hidden;
+        opacity: .92;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        transition: .7s ease;
+        
+        &--close {
+            transform: translateY(100%) translateX(-50%);;
+            transition-delay: 0s;
+            pointer-events: none;
+        }
+        
+        &--open {
+            transition-delay: .7s;
+            transform: translateY(0) translateX(-50%);; 
+            pointer-events: all;
+        }
+
+    }
+}
+
+
+
+.contact {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    width: 800px;
+    // height: 55vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 8px;
+    cursor: auto;
+    transition: .4s;
+
+    &--close {
+        transform: translateY(100%);
+        transition-delay: 0s;
+        pointer-events: none;
+    }
+    
+    &--open {
+        transition-delay: .7s;
+        transform: translateY(0); 
+        pointer-events: all;
+    }
+
+    &__close {
+        position: absolute;
+        top: 0;
+        right: -$espacement;
+    }
+
+    :global {
+        div {
+            background-color: #fff;
+            border-radius: 1.25rem;
+        }
+    }
+
+    &__map {
+        grid-column: 1 / span 2;
+        overflow: hidden;
+        height: 100%;
+
+        &--embed {
+            width: 100%;
+            overflow: hidden;
+
+            :global {
+                iframe {
+                    width: 100% !important;
+                }
+            }
+        }
+
+        &__body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            
+
+            &--address {
+                display: flex;
+                flex-direction: column;
+                padding-bottom: calc($espacement * 2);
+
+                :global {
+                    :first-child {
+                        font-weight: 600;
+                        color: #000;
+                    }
+
+                    span {
+                        font-weight: 400;
+                        color: $text-paragraph;
+                    }
+                }
+            }
+
+            &--social {
+                align-self: flex-end;
+
+                :global {
+                    a {
+                        position: relative;
+                        margin-left: 4px;
+                    }
+
+                    svg {
+                        height: 40px !important;
+                        width: 40px !important;
+                    }
+
+                    .social-container {
+                        height: 40px !important;
+                        width: 40px !important;
+                    }
+                    .social-icon {
+                        height: 40px !important;
+                        width: 40px !important;
+                    }
+                }
+            }
+        }
+    }
+
+    &__sponsors {
+        grid-column: 3 / span 2;
+        grid-row: 1 / span 2;
+
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        align-items: center;
+        justify-content: space-between;
+
+        &--partenaires {
+            margin-bottom: $espacement ;
+
+            :global {
+                h3 {
+                    margin-bottom: 8px;
+                    text-align: center;
+                }
+            }
+        }
+
+        &--dev {
+            color: $text-paragraph;
+
+            :global {
+                .accent {
+                    font-weight: 600;
+                    transition: .4s ease;
+
+                    &:hover {
+                        color: $accent;
+                    }
+                }
+            }
+        }
+
+        &--partenaire {
+            background-color: $background-card;
+            list-style: none;
+            margin-bottom: 4px;
+            padding: 4px 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            color: $text-paragraph;
+        }
+    }
+
+    &__telephone {
+        height: 52px;
+        padding: 12px;
+        background-color: $accent !important;
+
+        :global {
+            .link {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #fff;
+                font-weight: 500;
+            }
+        }
+    }
+    
+    &__mail {
+        padding: 12px;
+        height: 52px;
+
+        :global {
+            .link {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 500;
+            }
+        }
+    }
+}
+
+
+.planning__close {
+    position: fixed;
+    top: calc($espacement * 4);
+    right: calc($espacement * 4);
+    z-index: 1000000;
 }

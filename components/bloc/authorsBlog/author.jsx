@@ -3,10 +3,14 @@ import styles from './AuthorBlog.module.scss'
 import Link from 'next/link';
 
 export const Author = ({ author }) => {
+    console.log(author);
     
     return (
-        <Link href={`/auteur/[id]`} >
-            <a href={`/auteur/[id]`} className={styles.author}>
+        <Link href={{ 
+            pathname: '/blog/auteur/[slug]',
+            query: { slug: author.attributes.slug }
+            }} >
+            <a href={`/blog/auteur/${author.attributes.slug}`} className={styles.author}>
                 <div className={styles['author--picture']}>
                     <ImagePerso image={author.attributes.avatar} />
                 </div>

@@ -135,4 +135,19 @@
 }
 
 .header__nav__widget {
+    &--button {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 8px;
+        background-color: $accent;
+        color: #fff;
+        font-weight: 700;
+        cursor: pointer;
+        font-family: 'Poppins';
+        transition: .3s ease;
+
+        &:hover {
+            transform: scale(1.02) ;
+        }
+    }
 }

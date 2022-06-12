@@ -1,0 +1,44 @@
+@import '../../../styles/variables.module.scss';
+
+.close {
+    position: absolute;
+    z-index: 100;
+    // top: $espacement;
+    // right: $espacement;
+    width: calc($espacement * 2);
+    height: calc($espacement * 2);
+    border-radius: 100%;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.218);
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    transition: .4s;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(45deg);
+        width: $espacement;
+        height: 3px;
+        background-color: #fff;
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-45deg);
+        width: $espacement;
+        height: 3px;
+        background-color: #fff;
+    }
+
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.333);
+    }
+
+}

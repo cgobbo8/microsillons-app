@@ -13,7 +13,7 @@ export const GlobalContext = createContext({});
 
 function MyApp({ Component, pageProps }) {
 
-  const { global, live } = pageProps;
+  const { global, live, planning } = pageProps;
 
 
 
@@ -26,13 +26,15 @@ function MyApp({ Component, pageProps }) {
         />
       </Head>
 
+
       <GlobalContext.Provider value={global.attributes} test='test'>
         <TransitionContextProvider>
-        <Layout live={live}>
+        <Layout live={live} planning={planning} global={global}>
             <Component {...pageProps} />
           </Layout>
         </TransitionContextProvider>
       </GlobalContext.Provider>
+
     </>
   )
 }
@@ -49,9 +51,19 @@ MyApp.getInitialProps = async (ctx) => {
       },
       head : {
         populate: "*",
+      },
+      contact : {
+        populate: "*",
+      },
+      reseaux : {
+        populate: "*",
+      },
+      financeurs : {
+        populate: "*",
       }
     },
   });
+  
 
   const liveRes = await fetchAPI("/live", {
     populate: {
@@ -59,8 +71,14 @@ MyApp.getInitialProps = async (ctx) => {
     },
   });
 
+  const planningRes = await fetchAPI("/planning", {
+    populate: {
+      planning: "*",
+    },
+  });
+
   // Pass the data to our page via props
-  return { ...appProps, pageProps: { global: globalRes.data, live : liveRes.data.attributes } };
+  return { ...appProps, pageProps: { global: globalRes.data, live : liveRes.data.attributes, planning : planningRes.data } };
 };
 
 export default MyApp

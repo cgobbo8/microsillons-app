@@ -3,16 +3,17 @@ import Seo from "../components/bloc/seo";
 import EmblaCarousel from "../components/common/EmblaCarousel";
 import { CarouselArticles } from "../components/common/Flickity";
 import { AssociationSection } from "../components/sections/association";
+import { CompagnonsSection } from "../components/sections/compagnons";
 import { EmissionsSection } from "../components/sections/emissions";
 import { EquipeSection } from "../components/sections/equipeSection";
 import { RadioSection } from "../components/sections/radio";
 import { SeriesSection } from "../components/sections/series";
 import { fetchAPI } from "../lib/api";
 
-const SLIDE_COUNT = 5;
-const slides = Array.from(Array(SLIDE_COUNT).keys());
 
-const Home = ({ articles, slides, categories, homepage, emissions, series, equipe }) => {
+const Home = ({ articles, slides, categories, homepage, emissions, series, equipe, compagnons }) => {
+
+  console.log(compagnons);
   return (
     <div>
       <Seo seo={{...homepage.attributes.seo, title : homepage.attributes.titrePage }} />
@@ -26,6 +27,7 @@ const Home = ({ articles, slides, categories, homepage, emissions, series, equip
           <EmissionsSection emissionsInfo={homepage.attributes.emissions_bloc} emissions={emissions} />
           <SeriesSection seriesInfo={homepage.attributes.series_bloc} series={series} />
           <EquipeSection equipeInfo={homepage.attributes.equipe_bloc} equipe={equipe} />
+          <CompagnonsSection compagnons={compagnons} />
           {/* <Articles articles={articles} /> */}
         </div>
       </div>
@@ -37,7 +39,7 @@ export default Home;
 
 export async function getStaticProps() {
   // Run API calls in parallel
-  const [articlesRes, slidesRes, categoriesRes, homepageRes, emissionsRes, seriesRes, equipesRes] = await Promise.all([
+  const [articlesRes, slidesRes, categoriesRes, homepageRes, emissionsRes, seriesRes, equipesRes, compagnonsRes] = await Promise.all([
     fetchAPI("/articles", { populate: "*" }),
     fetchAPI("/articles", { 
       pagination: {
@@ -69,6 +71,9 @@ export async function getStaticProps() {
     fetchAPI("/equipes", {
       populate: "*"
     }),
+    fetchAPI("/sponsors", {
+      populate: "*"
+    }),
   ]);
 
   return {
@@ -80,6 +85,7 @@ export async function getStaticProps() {
       emissions: emissionsRes.data,
       series: seriesRes.data,
       equipe: equipesRes.data,
+      compagnons : compagnonsRes.data
     },
     revalidate: 100, 
   };

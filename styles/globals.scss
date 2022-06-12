@@ -12,6 +12,7 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
     background-color: $background-color;
     overflow-x: hidden;
+    height: 100vh;
 }
 
 #root {
@@ -130,7 +131,7 @@ img {
   transition: 1s cubic-bezier(.17,.67,.27,1.03);
 
   &:hover {
-    transform: scale(1.1);
+    // transform: scale(1.1);
   }
 }
 

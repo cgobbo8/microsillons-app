@@ -9,7 +9,7 @@ import styles from './Blog.module.scss'
 const blog = ({ articlesRecents, articles, categories, auteurs, blog }) => {
 
   return (
-    <div >
+    <div id='scrollableDiv'>
       <Seo seo={blog.attributes.seo} />
       <div className={styles.blog}>
         <section className={styles.blog__hero}>
@@ -40,7 +40,7 @@ export async function getStaticProps() {
       populate: "*", 
       pagination: {
         start: 0,
-        limit: 5
+        limit: 8
       }, 
       sort: "publishedAt:DESC" }),
     fetchAPI("/podcast-types", { populate: "*" }),

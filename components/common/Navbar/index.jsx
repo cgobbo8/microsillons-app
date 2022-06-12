@@ -4,8 +4,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router'
 
-export const Navbar = () => {
+export const Navbar = ({openPlanning, openContact}) => {
     const router = useRouter()
+
+    console.log(openPlanning);
 
     const handleNavigate = (e, route = "/") => {
         e.preventDefault()
@@ -32,12 +34,12 @@ export const Navbar = () => {
                     <li onClick={(e) => handleNavigate(e, "/blog")} className={`nav_link ${styles.header__nav__link} ${router.route.includes('/blog') ? 'active' : ''}`}>
                         <Link href="/blog">Blog</Link>
                     </li>
-                    <li className={styles.header__nav__link}>
+                    <li style={{cursor : 'pointer'}} onClick={openContact} className={styles.header__nav__link}>
                         Contact
                     </li>
                 </ul>
                 <div className={styles.header__nav__widget}>
-                    <div>Planning</div>
+                    <button className={styles['header__nav__widget--button']} onClick={() => openPlanning()}>Planning</button>
                 </div>
             </div>
 

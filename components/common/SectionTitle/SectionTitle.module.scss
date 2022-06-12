@@ -1,0 +1,23 @@
+@import '../../../styles/variables.module.scss';
+
+.title {
+    position: relative;
+    font-size: 3rem;
+    margin-bottom: $espacement;
+
+    &--accent {
+        color: $accent;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 20%;
+        height: 5px;
+        background-color: $accent;
+        border-radius: 100px;
+    }
+}

@@ -15,11 +15,12 @@ import ImagePerso from "../../components/bloc/image";
 import NextImage from 'next/image'
 import 'moment/locale/fr'
 import { ButtonSecondary } from "../../components/common/Button";
+import { AuthorSignature } from "../../components/component/AuthorSignature";
+import { CloseButton } from "../../components/common/CloseButton";
 
 
 const Article = ({ article, categories }) => {
   const imageUrl = getStrapiMedia(article.attributes.cover);
-
 
   const { reinitTransition, backTo } = useContext(TransitionContext);
 
@@ -29,7 +30,7 @@ const Article = ({ article, categories }) => {
   const tl = gsap.timeline({ paused: true });
 
   useEffect(() => {
-
+    window.scrollTo(0, 0)
     setMounted(true);
 
     reinitTransition();
@@ -77,10 +78,9 @@ const Article = ({ article, categories }) => {
       <Seo seo={seo} />
       <div className={styles.article__container}>
         <div className={styles.article__container__cover}>
-          <button className={styles['article__container__cover--close']} onClick={close}>
-            <div className="bar"></div>
-            <div className="bar"></div>
-          </button>
+          <div style={{position : 'absolute', top : '18px', right : '64px'}}>
+            <CloseButton onClick={close} />
+          </div>
           <div className={styles['article__container__cover--overlay']}></div>
           <ImagePerso image={article.attributes.cover} layout="fill" objectFit="cover" className={styles['article__container__cover--image']} src={getStrapiMedia(article.attributes.cover)} alt="" />
 
@@ -112,28 +112,7 @@ const Article = ({ article, categories }) => {
             })
           }
         </div>
-        <div className={styles.article__author} >
-          <div className={styles['article__author--picture']}>
-            {article.attributes.auteur.data.attributes.avatar && (
-              <ImagePerso
-                image={article.attributes.auteur.data.attributes.avatar}
-              />
-            )}
-          </div>
-          <div className={styles.article__author__info}>
-            <div className={styles.article__author__info__bloc}>
-              <p  className="uk-margin-remove-bottom">
-                Ecrit par <span className={styles['article__author__info__bloc--accent']}>{article.attributes.auteur.data.attributes.prenom} {article.attributes.auteur.data.attributes.nom}</span>
-              </p>
-              <p className="uk-text-meta uk-margin-remove-top">
-                <Moment format="MMM Do YYYY">
-                  {article.attributes.published_at}
-                </Moment>
-              </p>
-            </div>
-            <ButtonSecondary>Consulter les articles de cet auteur</ButtonSecondary>
-          </div>
-        </div>
+        <AuthorSignature author={article.attributes.auteur} article={article} isBlogPost />
       </div>
     </div>
     , document.getElementById("root"));

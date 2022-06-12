@@ -217,45 +217,4 @@
         }
     }
 
-    &__author {
-        position: relative;
-        margin: calc($espacement * 2);
-        margin-top: 0;
-
-        padding: $espacement ;
-
-        background-color: $background-card;
-
-        // box-shadow: 0 12px 18px 0 rgba(67, 21, 6, 0.05);
-        border-radius: 32px;
-
-        display: flex;
-        align-items: center;
-
-
-        &--picture {
-            position: relative;
-            width: 100px;
-            height: 100px;
-            border-radius: 24px;
-            overflow: hidden;
-        }
-
-        &__info {
-            display: flex;
-            width: 100%;
-            justify-content: space-between;
-            align-items: center;
-
-            &__bloc {
-                padding-left: $espacement;
-
-                &--accent {
-                    color: $accent;
-                    font-weight: 500;
-                    font-style: italic;
-                }
-            }
-        }
-    }
 }

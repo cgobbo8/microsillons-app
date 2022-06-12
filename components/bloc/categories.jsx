@@ -19,8 +19,11 @@ const Categories = ({ categories }) => {
             {categories.map((category) => {
               return (
                 <li key={category.id}>
-                  <Link href={`/category/${category.attributes.slug}`}>
-                    <a className="uk-link-reset">{category.attributes.name}</a>
+                  <Link href={{
+                    pathname: '/category/[slug]',
+                    query: { slug: category.attributes.slug },
+                    }}>
+                    <a href={`/category/${category.attributes.slug}`} className="uk-link-reset">{category.attributes.name}</a>
                   </Link>
                 </li>
               );
