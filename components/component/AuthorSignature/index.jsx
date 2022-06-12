@@ -3,6 +3,7 @@ import 'moment/locale/fr'
 import { ButtonSecondary } from "../../common/Button"; 
 import ImagePerso from "../../bloc/image";
 import styles from './AuthorSignature.module.scss'
+import Link from "next/link";
 
 export const AuthorSignature = ({ author, article = null, isBlogPost = false }) => {
     return (
@@ -28,7 +29,12 @@ export const AuthorSignature = ({ author, article = null, isBlogPost = false }) 
                     }
                     
                 </div>
-                { isBlogPost && <ButtonSecondary>Consulter les articles de cet auteur</ButtonSecondary> }
+                { isBlogPost && 
+                <Link href={`/blog/auteur/${author.attributes.slug}`}>
+                    <a  href={`/blog/auteur/${author.attributes.slug}`}>
+                        <ButtonSecondary>Consulter les articles de cet auteur</ButtonSecondary>
+                    </a>
+                </Link> }
             </div>
         </div>
     )
