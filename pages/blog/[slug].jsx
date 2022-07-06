@@ -73,7 +73,7 @@ const Article = ({ article, categories }) => {
     backTo()
   };
 
-  return mounted && createPortal(
+  return mounted && article?.attributes && createPortal(
     <div className={`${joinStyles(styles.article, 'article__container')} ${transitionOk ? '' : 'hide'}`} >
       <Seo seo={seo} />
       <div className={styles.article__container}>
