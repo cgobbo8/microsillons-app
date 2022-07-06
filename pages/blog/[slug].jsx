@@ -73,7 +73,7 @@ const Article = ({ article, categories }) => {
     backTo()
   };
 
-  return mounted && article?.attributes && createPortal(
+  return mounted && createPortal(
     <div className={`${joinStyles(styles.article, 'article__container')} ${transitionOk ? '' : 'hide'}`} >
       <Seo seo={seo} />
       <div className={styles.article__container}>
@@ -127,7 +127,7 @@ export async function getStaticPaths() {
         slug: article.attributes.slug,
       },
     })),
-    fallback: true,
+    fallback: false,
   };
 }
 
