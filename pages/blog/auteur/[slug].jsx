@@ -36,7 +36,7 @@ export async function getStaticPaths() {
         slug: auteur.attributes.slug,
       },
     })),
-    fallback: false,
+    fallback: "blocking",
   };
 }
 
