@@ -113,7 +113,7 @@ const Article = ({ article, categories }) => {
           }
         </div>
         {
-          article?.attributes?.author &&  <AuthorSignature author={article?.attributes?.auteur} article={article} isBlogPost />
+          article?.attributes?.auteur &&  <AuthorSignature author={article?.attributes?.auteur} article={article} isBlogPost />
         }
        
       </div>
