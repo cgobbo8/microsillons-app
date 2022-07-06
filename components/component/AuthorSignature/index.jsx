@@ -10,6 +10,8 @@ export const AuthorSignature = ({ author, article = null, isBlogPost = false }) 
     if (!author) {
         return null;
     }
+
+    // console.log(author.attributes.slug);
         
     return (
         <div className={styles.author} >
@@ -35,8 +37,8 @@ export const AuthorSignature = ({ author, article = null, isBlogPost = false }) 
                     
                 </div>
                 { isBlogPost && 
-                <Link href={`/blog/auteur/${author?.attributes?.slug}`}>
-                    <a  href={`/blog/auteur/${author?.attributes?.slug}`}>
+                <Link href={`/blog/auteur/${author?.data?.attributes?.slug}`}>
+                    <a  href={`/blog/auteur/${author?.data?.attributes?.slug}`}>
                         <ButtonSecondary>Consulter les articles de cet auteur</ButtonSecondary>
                     </a>
                 </Link> }
