@@ -112,7 +112,10 @@ const Article = ({ article, categories }) => {
             })
           }
         </div>
-        <AuthorSignature author={article?.attributes?.auteur} article={article} isBlogPost />
+        {
+          article?.attributes?.author &&  <AuthorSignature author={article?.attributes?.auteur} article={article} isBlogPost />
+        }
+       
       </div>
     </div>
     , document.getElementById("root"));
