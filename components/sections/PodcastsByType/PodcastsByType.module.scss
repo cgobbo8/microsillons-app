@@ -1,0 +1,84 @@
+@import '../../../styles/variables.module.scss';
+
+.article_by_type {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    &--title {
+        position: relative;
+        font-size: 3rem;
+        margin-bottom: $espacement;
+
+        &--accent {
+            color: $accent;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20%;
+            height: 5px;
+            background-color: $accent;
+            border-radius: 100px;
+        }
+    }
+
+    &__categories {
+        width: 70%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+
+        &--category {
+            position: relative;
+            // border: 2px solid $accent;
+            border-radius: 100px;
+            color: $accent;
+            padding: 4px 8px;
+            margin: 0 6px 6px;
+            margin-top: 0 !important;
+            font-weight: 600;
+            border: none;
+            font-family: 'Poppins';
+            cursor: pointer;
+            transition: .25s ease;
+            
+            &:hover {
+                &::before {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+
+            &--active {
+                background-color: $accent;
+                color: #fff;
+                &::before {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+
+            &::before {
+                transition: .25s ease;
+                content : '';
+                position: absolute;
+                top: -2px;
+                left: -2px;
+                height: calc(100% );
+                width: calc(100% );
+                border-radius: 100px;
+                border: 2px solid $accent;
+                transform: scale(1.05);
+                opacity: 0;
+            }
+        }
+    }
+}

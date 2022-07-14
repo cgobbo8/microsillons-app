@@ -8,13 +8,13 @@ import { fetchAPI } from "../lib/api";
 import { getStrapiMedia } from "../lib/media";
 import { TransitionContext, TransitionContextProvider } from '../contexts/TransitionContext';
 import { AnimatePresence } from 'framer-motion';
+import { PodcastContextProvider } from '../contexts/PodcastContext';
 
 export const GlobalContext = createContext({});
 
 function MyApp({ Component, pageProps }) {
 
-  const { global, live, planning } = pageProps;
-
+  const { global, live, planning, lastPodcast } = pageProps;
 
 
   return (
@@ -29,9 +29,11 @@ function MyApp({ Component, pageProps }) {
 
       <GlobalContext.Provider value={global.attributes} test='test'>
         <TransitionContextProvider>
-        <Layout live={live} planning={planning} global={global}>
-            <Component {...pageProps} />
-          </Layout>
+          <PodcastContextProvider lastPodcast={lastPodcast}>
+            <Layout live={live} planning={planning} global={global}>
+              <Component {...pageProps} />
+            </Layout>
+          </PodcastContextProvider>
         </TransitionContextProvider>
       </GlobalContext.Provider>
 
@@ -77,8 +79,19 @@ MyApp.getInitialProps = async (ctx) => {
     },
   });
 
+  const lastPodcastRes = await fetchAPI("/podcasts", {
+    populate: {
+      planning: "*",
+    },
+    pagination: {
+      start: 0,
+      limit: 1
+    },
+    sort: "publishedAt:DESC"
+  });
+
   // Pass the data to our page via props
-  return { ...appProps, pageProps: { global: globalRes.data, live : liveRes.data.attributes, planning : planningRes.data } };
+  return { ...appProps, pageProps: { global: globalRes.data, live : liveRes.data.attributes, planning : planningRes.data, lastPodcast : lastPodcastRes.data[0] } };
 };
 
 export default MyApp

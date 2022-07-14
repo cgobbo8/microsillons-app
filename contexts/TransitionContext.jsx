@@ -8,9 +8,6 @@ import gsap from "gsap";
 export const TransitionContext = createContext();
 
 
-
-
-
 export function TransitionContextProvider({children}) {
 
     const [loading, isLoading] = useState(false);

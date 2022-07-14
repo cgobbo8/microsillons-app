@@ -28,6 +28,7 @@
     "react-infinite-scroll-component": "^6.1.0",
     "react-markdown": "^8.0.3",
     "react-moment": "^1.1.2",
+    "react-player": "^2.10.1",
     "react-query": "^3.39.1",
     "react-slick": "^0.29.0",
     "react-social-icons": "^5.13.0",

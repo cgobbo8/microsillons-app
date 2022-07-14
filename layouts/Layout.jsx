@@ -123,7 +123,7 @@ export const Layout = ({ children, live, planning, global }) => {
                         <div className={styles['contact__map--embed']} dangerouslySetInnerHTML={{ __html: global.attributes.contact.adresse_google_map }}>
                             {/* <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d9712.683838964076!2d1.4631214335537523!3d43.63572149049223!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xeff97bbf79e393a0!2sMicro%20Sillons!5e0!3m2!1sfr!2sfr!4v1655027247134!5m2!1sfr!2sfr" width="400" height="300" style={{border: "0"}} allowFullScreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> */}
                         </div>
-                        <div className={styles['contact__map__body']}>
+                        {/* <div className={styles['contact__map__body']}>
                             <div className={styles['contact__map__body--address']}>
                                 <span>{global.attributes.contact.adresse_1}</span>
                                 { global.attributes.contact.adresse_2 && <span>{global.attributes.contact.adresse_2}</span>}
@@ -139,7 +139,7 @@ export const Layout = ({ children, live, planning, global }) => {
                                 { global.attributes.reseaux.donation && <Link href={global.attributes.reseaux.donation} ><a href={global.attributes.reseaux.donation}><SocialIcon url={global.attributes.reseaux.donation} /></a></Link>}
                                 { global.attributes.reseaux.soundcloud && <Link href={global.attributes.reseaux.soundcloud} ><a href={global.attributes.reseaux.soundcloud}><SocialIcon url={global.attributes.reseaux.soundcloud} /></a></Link>}
                             </div>
-                        </div>
+                        </div> */}
 
                     </div>
                     <div className={styles.contact__sponsors}>
