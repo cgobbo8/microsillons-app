@@ -9,9 +9,8 @@ import { useContext } from 'react';
 import { PodcastContext } from '../../contexts/PodcastContext';
 import { PodcastsByType } from '../../components/sections/PodcastsByType';
 
-// import SC from '../../lib/soundcloud';
 
-const podcasts = ({page, podcasts, categories}) => {
+const Podcasts = ({page, podcasts, categories}) => {
 
     const { setCurrentPodcast } = useContext(PodcastContext);
 
@@ -20,7 +19,6 @@ const podcasts = ({page, podcasts, categories}) => {
       // console.log(podcast);
     }
 
-    // console.log(SC);
     return (
         <div className={styles.podcast__container}>
             <Seo seo={page.attributes.seo} favicon={page.attributes.favicon} />
@@ -46,7 +44,6 @@ const podcasts = ({page, podcasts, categories}) => {
 }
 
 export async function getStaticProps() {
-    // Run API calls in parallel
     const [pageRes, podcastsRes, categoriesRes] = await Promise.all([
       fetchAPI("/podcast-page", {
         populate: {
@@ -76,4 +73,4 @@ export async function getStaticProps() {
     };
   }
 
-export default podcasts
+export default Podcasts
