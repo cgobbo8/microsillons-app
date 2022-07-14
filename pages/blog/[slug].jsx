@@ -17,10 +17,13 @@ import 'moment/locale/fr'
 import { ButtonSecondary } from "../../components/common/Button";
 import { AuthorSignature } from "../../components/component/AuthorSignature";
 import { CloseButton } from "../../components/common/CloseButton";
+import { Sources } from "../../components/component/Sources";
 
 
 const Article = ({ article, categories }) => {
   const imageUrl = getStrapiMedia(article.attributes.cover);
+
+  console.log(article)
 
   const { reinitTransition, backTo } = useContext(TransitionContext);
 
@@ -94,6 +97,9 @@ const Article = ({ article, categories }) => {
           {/* <ImagePerso className={styles['article__container__cover--image']} image={article.attributes.cover} /> */}
         </div>
 
+        {article?.attributes?.sources && article?.attributes?.sources?.data && <Sources sources={article?.attributes?.sources} />}
+        
+
         <div className={styles.article__content}>
           {
             article?.attributes?.sections?.map((section, index) => {
@@ -139,7 +145,8 @@ export async function getStaticProps({ params }) {
     filters: {
       slug: params.slug,
     },
-    populate: ["cover", "podcast_types", "auteur.avatar", "sections"],
+    // populate: ["cover", "podcast_types", "auteur.avatar", "sections", "sources"],
+    populate : "*"
   });
   const categoriesRes = await fetchAPI("/podcast-types");
 
