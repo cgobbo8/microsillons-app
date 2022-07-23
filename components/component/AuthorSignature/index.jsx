@@ -10,8 +10,6 @@ export const AuthorSignature = ({ author, article = null, isBlogPost = false }) 
     if (!author) {
         return null;
     }
-
-    // console.log(author.attributes.slug);
         
     return (
         <div className={styles.author} >

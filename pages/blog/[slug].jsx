@@ -18,6 +18,7 @@ import { ButtonSecondary } from "../../components/common/Button";
 import { AuthorSignature } from "../../components/component/AuthorSignature";
 import { CloseButton } from "../../components/common/CloseButton";
 import { Sources } from "../../components/component/Sources";
+import { GalleryComponent } from "../../components/component/GalleryComponent";
 
 
 const Article = ({ article, categories }) => {
@@ -112,12 +113,14 @@ const Article = ({ article, categories }) => {
                   // return <div>{JSON.stringify(section)}</div>
                   // return <img key={index} src="http://random.imagecdn.app/1920/1080" alt={section.legende} />
                 default:
-                  return <div key={index} className="test">test</div>
-                  break;
+                  return null;
               }
             })
           }
         </div>
+        {
+          article?.attributes?.gallerie?.data && <GalleryComponent images={article?.attributes?.gallerie?.data} />
+        }
         {
           article?.attributes?.auteur &&  <AuthorSignature author={article?.attributes?.auteur} article={article} isBlogPost />
         }
@@ -145,8 +148,8 @@ export async function getStaticProps({ params }) {
     filters: {
       slug: params.slug,
     },
-    // populate: ["cover", "podcast_types", "auteur.avatar", "sections", "sources"],
-    populate : "*"
+    populate: ["cover", "podcast_types", "auteur", "auteur.avatar", "sections", "sources", "gallerie"],
+    // populate : "*"
   });
   const categoriesRes = await fetchAPI("/podcast-types");
 

@@ -10,12 +10,17 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    flex-wrap: wrap;
+
 
     &__button {
+
+
         position: relative;
         height: 120px;
         width: 100px;
         overflow: hidden;
+        margin-bottom: $espacement;
 
         border-radius: 12px;
         box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);

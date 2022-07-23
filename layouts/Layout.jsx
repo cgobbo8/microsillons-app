@@ -55,8 +55,12 @@ export const Layout = ({ children, live, planning, global }) => {
     }, [preventLayoutTransition]);
 
     const openPlanning = useCallback(() => {
-        setPlanningOpen(true);
-    }, [setPlanningOpen]);
+        if (planning.attributes.planning.data.attributes.ext === '.pdf') {
+            window.open(planning.attributes.planning.data.attributes.url, '_blank');
+        } else {
+            setPlanningOpen(true);
+        }
+    }, [setPlanningOpen, planning]);
 
     const closePlanning = useCallback(() => {
         setPlanningOpen(false);
@@ -65,15 +69,15 @@ export const Layout = ({ children, live, planning, global }) => {
     const stopPropagation = useCallback(e => {
         e.stopPropagation();
         e.preventDefault();
-    });
+    },[]);
 
     const openContact = useCallback(() => {
         setContactOpen(true);
-    })
+    },[setContactOpen]);
 
     const closeContact = useCallback(() => {
         setContactOpen(false);
-    })
+    },[setContactOpen])
 
 
     return (

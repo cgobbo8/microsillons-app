@@ -1,0 +1,55 @@
+@import '../../../styles/variables.module.scss';
+
+
+.gallery {
+    // gallery with grid layout
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+
+    position: relative;
+
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    z-index: 100;
+    padding-bottom: $espacement;
+    padding-right: $espacement;
+    padding-left: $espacement;
+
+    gap: 4px;
+
+
+    &__image {
+        position: relative;
+        aspect-ratio: 1;
+        width: 100%;
+        position: relative;
+        border-radius: 12px;
+        overflow: hidden;
+
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            opacity: 0.3;
+            z-index: 5;
+            transition: .4s ease;
+        }
+
+        &:hover {
+            cursor: pointer;
+
+            img {
+                transform: scale(1.1);
+            }
+            &::after {
+                opacity: 0.6;
+            }
+        }
+    }
+}

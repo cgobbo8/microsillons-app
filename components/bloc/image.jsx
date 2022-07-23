@@ -6,8 +6,10 @@ import { getStrapiMedia } from "../../lib/media";
 
 const ImagePerso = ({ image, directUrl, classProp }) => {
 
+  // console.log(image);
+
   
-  // const { alternativeText, width, height } = image?.data?.attributes;
+  // const { alternativeText, width, height } = image?.data?.attributes || {};
 
   // const [blurDataURL, setBlurDataURL] = useState(null);
 

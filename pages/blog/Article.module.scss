@@ -4,7 +4,13 @@
     position: absolute;
     top: calc($navbar-height + $marge * 2);
     left: calc($sidebar-width + $marge);
+    
     width: calc(100% - $sidebar-width - $espacement * 2);
+
+    @media screen and (max-width: 1200px) {
+        left: $marge;
+        width: calc(100% - $marge * 2);
+    }
     // overflow: hidden;
     background-color: white;
     // z-index: 100;
@@ -44,33 +50,18 @@
             overflow: hidden;
             position: relative;
 
-            // &--image {
-                // use if img
-
-            //     position: absolute;
-            //     width: 100%;
-            //     top: 50%;
-            //     left: 50%;
-            //     transform: translate(-50%, -50%);
-            //     z-index: 1;
-            //     object-fit: cover;
-
-            //     &:hover {
-            //         transform: scale(1) translate(-50%, -50%);
-            //     }
-
-            // }
-
             &--overlay {
                 position: absolute;
                 top: 0;
                 left: 0;
                 width: 100%;
                 height: 100%;
-                background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%,rgba(0, 0, 0, 0.6) 25%,rgba(0, 0, 0, .4) 50%,rgba(0, 0, 0, 0.6) 75%, rgba(0, 0, 0, 0.8) 100%);
+                background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%,rgba(0, 0, 0, 0.6) 25%,rgba(0, 0, 0, .8) 50%,rgba(0, 0, 0, 0.9) 75%, rgba(0, 0, 0, 0.9) 100%);
                 border-radius: 24px;
                 z-index: 2;
                 opacity: .8;
+                // display: none;
+
             }
 
             &--close {
@@ -80,6 +71,7 @@
                 right: $espacement;
                 width: calc($espacement * 2);
                 height: calc($espacement * 2);
+                transform: translate(-50%, -50%);
                 border-radius: 100%;
                 border: none;
                 background-color: rgba(255, 255, 255, 0.218);
@@ -117,26 +109,26 @@
             }
 
             &__bloc {
-                left: calc($espacement*2);
-                top: 50%;
-                // transform: translateY(-50%);
                 position: absolute;
-                z-index: 100;
-                height: 100px;
-                width: 100px;
-                color: #fff;
+                width: 100%;
+                height: 100%;
+                z-index: 3;
                 display: flex;
+                color: #fff;
                 flex-direction: column;
                 align-items: flex-start;
-                width: 100%;
 
                 &__top {
+                    position: absolute;
                     display: flex;
                     flex-direction: column;
-                    width: 70%; 
+                    bottom: $espacement;
+                    left: $espacement;
+                    
+
                     &--title {
-                        line-height: 3rem;
-                        font-size: 3rem;
+                        line-height: 2.2rem;
+                        font-size: 2rem;
                         text-transform: uppercase;
                         margin-right: $espacement;
                         max-width: 70%;
@@ -157,6 +149,9 @@
                     justify-content: center;
                     align-items: center;
                     margin-top: calc($espacement / 2);
+                    position: absolute;
+                    top: calc($espacement / 2);
+                    left: $espacement;
                 }
 
                 &--category {
@@ -177,7 +172,7 @@
     }
 
     &__content {
-        padding: 50px;
+        padding: $espacement;
 
         h1,h2,h3,h4,h5,h6 {
 
