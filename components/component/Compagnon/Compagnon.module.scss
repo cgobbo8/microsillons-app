@@ -18,12 +18,15 @@
 
     &__image {
         position: relative;
-        // height: calc(100% - 2 * $espacement);
+        height: calc(100% - 2 * $espacement);
         margin-left: 24px;
         border-radius: 12px;
         overflow: hidden;
         margin: $espacement;
         object-fit: contain;
+        // height: 90%;
+        // width:px;
+        aspect-ratio: 1;
         // preserve ratio
 
         // margin-top: 30px;
