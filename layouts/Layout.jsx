@@ -12,6 +12,7 @@ import { SocialIcon } from 'react-social-icons';
 import Link from 'next/link';
 import { CloseButton } from '../components/common/CloseButton';
 import { slide as Menu } from 'react-burger-menu'
+import Script from 'next/script';
 
 
 export const Layout = ({ children, live, planning, global }) => {
@@ -82,7 +83,19 @@ export const Layout = ({ children, live, planning, global }) => {
 
     return (
         <div id='root' className={styles.layout}>
-            
+            <Script
+                src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"
+                strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+                {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){window.dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', 'G-X3B442098Y');
+                `}
+            </Script>
 
             <div className={styles.layout__container}>
                 <Navbar openPlanning={openPlanning} openContact={openContact} />

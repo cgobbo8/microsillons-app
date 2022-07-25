@@ -96,7 +96,7 @@ export const Countdown = ({ live }) => {
             </a>
         </Link>} */}
         {(!beforeLive && !isLive) && <div className={styles.noLive}>
-            Pas de live de prévu
+            Aucun live prévu
         </div>}
         </>
     )
