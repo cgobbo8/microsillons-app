@@ -1,53 +1,179 @@
-
-import styles from './PodcastsByType.module.scss'
-import { Section } from "../../common/Section";
-import Flickity from 'react-flickity-component'
+import styles from './PodcastsByType.module.scss';
+import { Section } from '../../common/Section';
+import Flickity from 'react-flickity-component';
 import Link from 'next/link';
 import { joinStyles } from '../../../utils';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { InfinitePodcasts } from './InfinitePodcasts';
 import { fetchAPI } from '../../../lib/api';
-
+import { debounce } from 'lodash';
+import { Search } from '../../svgs';
 
 export const PodcastsByType = ({ podcasts, categories }) => {
-    const [podcastsToShow, setPodcastsToShow] = useState(podcasts);
-    const [categorySelected, setCategorySelected] = useState(null);
+  const [podcastsToShow, setPodcastsToShow] = useState(podcasts);
+  const [categorySelected, setCategorySelected] = useState(null);
+  const [textFilter, setTextFilter] = useState('');
+  const [filters, setFilters] = useState({});
+  const [podcastsLoading, setPodcastsLoading] = useState(false);
 
+  useEffect(() => {
+    console.log(filters);
+  }, [filters.podcast_types, filters.$or]);
 
-    const handleCategorySelected = async (category) => {
-        setCategorySelected(category);
-        if (category) {
-            const res = await fetchAPI("/podcasts", {
-                populate: "*", 
-                pagination: {
-                  start: 0,
-                  limit: 8
-                }, 
-                filters: {
-                    podcast_types: {
-                        id : category.id
-                    }
-                },
-                sort: "publishedAt:DESC" })
-    
-            setPodcastsToShow(res.data);
-        } else {
-            setPodcastsToShow(podcasts);
-        }
+  const handleCategorySelected = async (category) => {
+    setCategorySelected(category);
+    setPodcastsLoading(true);
+    console.log(filters);
+    try {
+      if (category) {
+        console.log('category', category);
+        const res = await fetchAPI('/podcasts', {
+          populate: '*',
+          pagination: {
+            start: 0,
+            limit: 8
+          },
+          filters: {
+            ...filters,
+            podcast_types: {
+              id: category.id
+            }
+          },
+          sort: 'publishedAt:DESC'
+        });
+        setFilters({
+          ...filters,
+          podcast_types: {
+            id: category.id
+          }
+        });
+        setPodcastsToShow(res.data);
+      } else if (filters.$or && filters.$or[0] && filters.$or[0].auteurs?.nom?.$containsi) {
+        console.log(filters.$or[0].auteurs?.nom?.$containsi);
+        const res = await fetchAPI('/podcasts', {
+          populate: '*',
+          pagination: {
+            start: 0,
+            limit: 8
+          },
+          filters: {
+            ...filters
+          },
+          sort: 'publishedAt:DESC'
+        });
 
+        setPodcastsToShow(res.data);
+      } else {
+        console.log('Dans le else');
+        // Delete filters.podcast_types;
+        setFilters({
+          ...filters,
+          podcast_types: null
+        });
+        const res = await fetchAPI('/podcasts', {
+          populate: '*',
+          pagination: {
+            start: 0,
+            limit: 8
+          },
+          sort: 'publishedAt:DESC'
+        });
+
+        setPodcastsToShow(res.data);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setPodcastsLoading(false);
     }
+  };
 
-    return (
-        
-        <Section className={styles.article_by_type}>
-            <h3 className={styles['article_by_type--title']}>Explorer par <span className={styles['article_by_type--title--accent']}>types</span></h3>
-            <div className={styles['article_by_type__categories']}>
-                <button onClick={() => handleCategorySelected(null)} className={joinStyles(styles['article_by_type__categories--category'], !categorySelected && styles['article_by_type__categories--category--active'])}>Tous</button>
-                {
-                    categories.map(category => <button key={category.id} onClick={() => handleCategorySelected(category)} className={joinStyles(styles['article_by_type__categories--category'], (categorySelected?.id === category.id) && styles['article_by_type__categories--category--active'])}>{category.attributes.type}</button> )
-                }
-            </div>
-            <InfinitePodcasts podcasts={podcastsToShow} categorySelected={categorySelected} />
-        </Section>
-    )
-}
+  const updateTextFilter = (e) => {
+    setPodcastsLoading(true);
+    setTextFilter(e.target.value);
+    debounceSave(e.target.value);
+  };
+
+  const debounceSave = useCallback(
+    debounce(async (value) => {
+      //   console.log(value);
+      console.log(filters);
+      let tabValue = value.split(' ');
+
+      let $orTab = [];
+
+      tabValue.forEach((value) => {
+        $orTab = [
+          ...$orTab,
+          { auteurs: { nom: { $containsi: value } } },
+          { auteurs: { prenom: { $containsi: value } } },
+          { podcast_title: { $containsi: value } }
+        ];
+      });
+
+      try {
+        const res = await fetchAPI('/podcasts', {
+          populate: '*',
+          pagination: {
+            start: 0,
+            limit: 8
+          },
+          filters: {
+            ...filters,
+            $or: [...$orTab]
+          },
+          sort: 'publishedAt:DESC'
+        });
+
+        setFilters({
+          ...filters,
+          $or: [...$orTab]
+        });
+        setPodcastsToShow(res.data);
+      } catch (error) {
+        console.log(error);
+        console.table(error);
+      } finally {
+        setPodcastsLoading(false);
+      }
+    }, 500),
+    [filters.podcast_types, filters.$or]
+  );
+
+  return (
+    <Section className={styles.article_by_type}>
+      <h3 className={styles['article_by_type--title']}>
+        Explorer par <span className={styles['article_by_type--title--accent']}>types</span>
+      </h3>
+      <div className={styles['article_by_type__categories']}>
+        <button
+          onClick={() => handleCategorySelected(null)}
+          className={joinStyles(
+            styles['article_by_type__categories--category'],
+            !categorySelected && styles['article_by_type__categories--category--active']
+          )}>
+          Tous
+        </button>
+        {categories.map((category) => (
+          <button
+            key={category.id}
+            onClick={() => handleCategorySelected(category)}
+            className={joinStyles(
+              styles['article_by_type__categories--category'],
+              categorySelected?.id === category.id && styles['article_by_type__categories--category--active']
+            )}>
+            {category.attributes.type}
+          </button>
+        ))}
+      </div>
+      <div className={styles['article_by_type__search']}>
+        <input placeholder="Recherchez un titre, un auteur..." onChange={updateTextFilter} type="text" className="podcast_filter" />
+        <button className={styles['article_by_type__search--button']}>
+          <Search />
+        </button>
+      </div>
+
+      <InfinitePodcasts podcasts={podcastsToShow} categorySelected={categorySelected} filters={filters} podcastsLoading={podcastsLoading} />
+    </Section>
+  );
+};

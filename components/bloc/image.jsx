@@ -4,7 +4,7 @@ import ImageNext from "next/image";
 import { useEffect, useState } from "react";
 import { getStrapiMedia } from "../../lib/media";
 
-const ImagePerso = ({ image, directUrl, classProp }) => {
+const ImagePerso = ({ image, directUrl, classProp, contain = false }) => {
 
   // console.log(image);
 
@@ -34,7 +34,7 @@ const ImagePerso = ({ image, directUrl, classProp }) => {
         // height={height}
         blurDataURL={image}
         placeholder="blur"
-        objectFit="cover"
+        objectFit={contain ? "contain" : "cover"}
         loader={() => image}
         src={image}
         alt={'alternativeText' || ""}
@@ -46,7 +46,7 @@ const ImagePerso = ({ image, directUrl, classProp }) => {
         // height={height}
         blurDataURL={getStrapiMedia(image)}
         placeholder="blur"
-        objectFit="cover"
+        objectFit={contain ? "contain" : "cover"}
         loader={() => getStrapiMedia(image)}
         src={getStrapiMedia(image)}
         alt={'alternativeText' || ""}

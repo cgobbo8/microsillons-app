@@ -196,6 +196,21 @@
             }
         }
 
+        a {
+            color: $accent;
+            font-weight: 600;
+            text-decoration: underline;
+            
+            &:hover {
+                text-decoration: none;
+            }
+
+            // when already visited
+            &:visited {
+                color: $primary-color;
+            }
+        }
+
         blockquote {
             p {
                 margin-bottom: 1rem;

@@ -15,8 +15,9 @@
         
 
         &:hover {
-            background-color: $background-card-light;
+            background-color: $accent;
             transform: scale(1.01);
+            color: #fff;
             // box-shadow: 0 5px 20px 10px rgba(0, 0, 0, 0.07);
         }
     }

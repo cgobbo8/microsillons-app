@@ -10,7 +10,7 @@ export const ImageModal = ({image, closeModal, shown}) => {
         (
             <div className={styles.image_modal} onClick={closeModal}>
                 <div className={styles.image_modal__image}>
-                    <ImagePerso image={image.attributes.url} directUrl />
+                    <ImagePerso image={image.attributes.url} directUrl contain />
                     <span className={styles.image_modal__image__close}>
                         <CloseButton onClick={closeModal} />
                     </span>

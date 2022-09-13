@@ -1,11 +1,12 @@
 import ImagePerso from '../../bloc/image'
 import styles from './SerieComponent.module.scss'
 
-export const SerieComponent = ({serie}) => {
+export const SerieComponent = ({ serie }) => {
+    console.log(serie);
 
 
     return (
-        <div className={styles.card}>
+        <a href={serie.attributes.lien ? serie.attributes.lien : 'https://soundcloud.com/micro-sillons' } target="_blank" rel="noreferrer" className={styles.card}>
             <div className={styles.card__top}>
                 <div className={styles['card__top--left']}>
                     <ImagePerso image={serie.attributes.image} />
@@ -24,6 +25,6 @@ export const SerieComponent = ({serie}) => {
                 {serie.attributes.description}
             </div>
             
-        </div>
+        </a>
     )
 }
