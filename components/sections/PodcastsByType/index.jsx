@@ -50,6 +50,14 @@ export const PodcastsByType = ({ podcasts, categories }) => {
         setPodcastsToShow(res.data);
       } else if (filters.$or && filters.$or[0] && filters.$or[0].auteurs?.nom?.$containsi) {
         console.log(filters.$or[0].auteurs?.nom?.$containsi);
+        console.log(filters);
+
+        setFilters((filters) => {
+          let newFilters = { ...filters };
+          delete newFilters.podcast_types;
+          return newFilters;
+        });
+        console.log(filters);
         const res = await fetchAPI('/podcasts', {
           populate: '*',
           pagination: {
@@ -65,10 +73,11 @@ export const PodcastsByType = ({ podcasts, categories }) => {
         setPodcastsToShow(res.data);
       } else {
         console.log('Dans le else');
-        // Delete filters.podcast_types;
-        setFilters({
-          ...filters,
-          podcast_types: null
+
+        setFilters((filters) => {
+          let newFilters = { ...filters };
+          delete newFilters.podcast_types;
+          return newFilters;
         });
         const res = await fetchAPI('/podcasts', {
           populate: '*',
@@ -100,16 +109,31 @@ export const PodcastsByType = ({ podcasts, categories }) => {
       console.log(filters);
       let tabValue = value.split(' ');
 
+      // remove empty values
+      tabValue = tabValue.filter((v) => v !== '');
+      console.log(tabValue);
+
       let $orTab = [];
 
-      tabValue.forEach((value) => {
+      if (tabValue.length === 2) {
         $orTab = [
-          ...$orTab,
-          { auteurs: { nom: { $containsi: value } } },
-          { auteurs: { prenom: { $containsi: value } } },
+          {
+            $and: [{ auteurs: { nom: { $containsi: tabValue[0] } } }, { auteurs: { prenom: { $containsi: tabValue[1] } } }]
+          },
+          {
+            $and: [{ auteurs: { prenom: { $containsi: tabValue[0] } } }, { auteurs: { nom: { $containsi: tabValue[1] } } }]
+          },
           { podcast_title: { $containsi: value } }
         ];
-      });
+      } else if (tabValue.length === 1) {
+        $orTab = [
+          { auteurs: { nom: { $containsi: tabValue[0] } } },
+          { auteurs: { prenom: { $containsi: tabValue[0] } } },
+          { podcast_title: { $containsi: tabValue[0] } }
+        ];
+      } else {
+        $orTab = [{ podcast_title: { $containsi: value } }];
+      }
 
       try {
         const res = await fetchAPI('/podcasts', {
