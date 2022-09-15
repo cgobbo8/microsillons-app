@@ -28,7 +28,7 @@ export const InfinitePodcasts = ({ podcasts, categorySelected, authorSlug = null
 
   const ref = useRef();
   const refContainer = useRef();
-  const isVisible = useOnScreen(ref);
+  const [isVisible, count] = useOnScreen(ref);
 
   const getMorePost = async () => {
     setIsLoading(true);
@@ -63,7 +63,7 @@ export const InfinitePodcasts = ({ podcasts, categorySelected, authorSlug = null
     if (isVisible) {
       getMorePost();
     }
-  }, [isVisible]);
+  }, [isVisible, count]);
 
   const handlePlayPodcast = (e, podcast) => {
     e.preventDefault();
