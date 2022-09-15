@@ -34,6 +34,7 @@
         
         position: relative;
         display: flex;
+        // align-items: flex-start;
         align-items: center;
         width: 100%;
         padding: 20px;
@@ -43,6 +44,7 @@
         transition: .3s ease;
         border-radius: 20px;
         background-color: $background-card;
+        // background-color: red !important;
 
 
 
@@ -61,6 +63,23 @@
                 @media screen and (max-width: 500px) {
                     display: none;
                 }
+
+                &--duration {
+                    position: absolute;
+                    z-index: 10;
+                    bottom: 6px;
+                    right: 6px;
+                    background-color: $accent;
+
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    color: #fff;
+                    font-weight: 500;
+                    padding: .25rem .5rem;
+                    border-radius: 14px;
+                }
         }
 
         &__info {
@@ -68,8 +87,9 @@
             position: relative;
             display: flex;
             flex-direction: column;
-            height: 156px;
-            justify-content: center;
+            // height: 156px;
+            max-width: 80%;
+            justify-content: flex-start;
 
             &--types {
                 // background-color: red;
@@ -87,7 +107,26 @@
             &--title {
                 font-size: 1.5rem;
                 font-weight: 600;
-                max-width: 450px;
+                max-width: 600px;
+            }
+
+            &--authors {
+                font-style: italic;
+                color: $accent;
+
+                &--author {
+                    font-weight: 600;
+                }
+
+                .infinite_articles__article__info--date--date {
+                    // color: #000;
+                    // color: $text-paragraph;
+                }
+                .infinite_articles__article__info--date--time {
+                    // color: #000;
+                    font-weight: 600;
+                    // color: $text-paragraph;
+                }
             }
 
             &--divider {
@@ -103,11 +142,19 @@
                 }
             }
 
+            &--desc {
+                color: $text-paragraph; 
+                width: 90%;
+            }
+
             &--date {
-                display: flex;
-                align-items: center;
+                // display: flex;
+                // align-items: center;
+                font-style: italic;
+                color: $accent;
 
                 transition: .4s ease;
+                
                 @media screen and (max-width: 600px) {
                     display: none;
                 }
@@ -125,8 +172,8 @@
                 }
 
                 &--time {
-                    // font-weight: 600;  
-                    color: $text-paragraph;  
+                    font-weight: 600;  
+                    // color: $text-paragraph;  
                 }
             }
         }
@@ -155,5 +202,12 @@
             }
         }
 
+    }
+
+    :global {
+        .filter {
+            background-color: $accent !important;
+            color: #fff !important;
+        }
     }
 }

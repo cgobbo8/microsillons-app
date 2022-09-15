@@ -87,13 +87,17 @@
 .article_by_type__search {
     position: relative;
     height: 40px;
-    width: 400px;
+    width: 500px;
     display: flex;
     margin-top: calc($espacement*2);
     margin-bottom: $espacement;
     border-radius: 100px;
     overflow: hidden;
     background-color: #fff;
+
+    @media screen and (max-width: 600px) {
+        width: 90%;
+    }
 
     input {
         width: 100%;

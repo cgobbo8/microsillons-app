@@ -123,16 +123,24 @@ export const PodcastsByType = ({ podcasts, categories }) => {
           {
             $and: [{ auteurs: { prenom: { $containsi: tabValue[0] } } }, { auteurs: { nom: { $containsi: tabValue[1] } } }]
           },
-          { podcast_title: { $containsi: value } }
+          { podcast_title: { $containsi: value } },
+          { podcast_description: { $containsi: value } },
+          { podcast_types: { type: { $containsi: tabValue[0] } } }
         ];
       } else if (tabValue.length === 1) {
         $orTab = [
           { auteurs: { nom: { $containsi: tabValue[0] } } },
           { auteurs: { prenom: { $containsi: tabValue[0] } } },
-          { podcast_title: { $containsi: tabValue[0] } }
+          { podcast_title: { $containsi: tabValue[0] } },
+          { podcast_description: { $containsi: tabValue[0] } },
+          { podcast_types: { type: { $containsi: tabValue[0] } } }
         ];
       } else {
-        $orTab = [{ podcast_title: { $containsi: value } }];
+        $orTab = [
+          { podcast_title: { $containsi: value } },
+          { podcast_description: { $containsi: value } },
+          { podcast_types: { type: { $containsi: value } } }
+        ];
       }
 
       try {
@@ -191,13 +199,19 @@ export const PodcastsByType = ({ podcasts, categories }) => {
         ))}
       </div>
       <div className={styles['article_by_type__search']}>
-        <input placeholder="Recherchez un titre, un auteur..." onChange={updateTextFilter} type="text" className="podcast_filter" />
+        <input placeholder="Recherchez un titre, un auteur, une playlist..." onChange={updateTextFilter} type="text" className="podcast_filter" />
         <button className={styles['article_by_type__search--button']}>
           <Search />
         </button>
       </div>
 
-      <InfinitePodcasts podcasts={podcastsToShow} categorySelected={categorySelected} filters={filters} podcastsLoading={podcastsLoading} />
+      <InfinitePodcasts
+        podcasts={podcastsToShow}
+        filterWord={textFilter}
+        categorySelected={categorySelected}
+        filters={filters}
+        podcastsLoading={podcastsLoading}
+      />
     </Section>
   );
 };
