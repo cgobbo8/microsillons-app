@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router'
 
-export const Navbar = ({openPlanning, openContact}) => {
+export const Navbar = ({openPlanning, openContact, hasPlanning}) => {
     const router = useRouter()
 
 
@@ -38,9 +38,11 @@ export const Navbar = ({openPlanning, openContact}) => {
                         Contact
                     </li>
                 </ul>
+                {hasPlanning && (
                 <div className={styles.header__nav__widget}>
                     <button className={styles['header__nav__widget--button']} onClick={() => openPlanning()}>Planning</button>
                 </div>
+                )}
             </div>
 
             

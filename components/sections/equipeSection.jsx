@@ -7,14 +7,18 @@ import { Team } from "../component/Team";
 import { Divider } from "../common/Divider";
 
 
-export const EquipeSection = ({equipeInfo, equipe}) => {
+export const EquipeSection = ({equipeInfo, equipe = []}) => {
     let [equipeList, setEquipeList] = useState({});
 
     useEffect(() => {
         setEquipeList({})
+        if (!equipe || equipe.length === 0) return;
+
         equipe.forEach(membre => {
             // get first letter of the firstname
-            let firstLetter = membre.attributes.prenom.charAt(0);
+            const prenom = membre?.attributes?.prenom;
+            if (!prenom) return;
+            let firstLetter = prenom.charAt(0);
             setEquipeList(prevState => {
                 return {
                     ...prevState,
@@ -23,10 +27,10 @@ export const EquipeSection = ({equipeInfo, equipe}) => {
         })
 
     }, [equipe])
-    
+
     return (
         <Section>
-            <TitleTextBloc title={equipeInfo.titre} text={equipeInfo.texte} />
+            <TitleTextBloc title={equipeInfo?.titre} text={equipeInfo?.texte} />
             <Divider />
             <Team team={equipeList} />
         </Section>

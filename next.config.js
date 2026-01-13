@@ -3,8 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     loader: "default",
-    // domains: ["localhost"],
-    domains: ["https://microsillons-strapi.herokuapp.com", "res.cloudinary.com"],
+    domains: ["localhost", "microsillons-strapi.herokuapp.com", "res.cloudinary.com"],
   },
 }
 

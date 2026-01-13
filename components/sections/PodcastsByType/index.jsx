@@ -9,8 +9,8 @@ import { fetchAPI } from '../../../lib/api';
 import { debounce } from 'lodash';
 import { Search } from '../../svgs';
 
-export const PodcastsByType = ({ podcasts, categories }) => {
-  const [podcastsToShow, setPodcastsToShow] = useState(podcasts);
+export const PodcastsByType = ({ podcasts = [], categories = [] }) => {
+  const [podcastsToShow, setPodcastsToShow] = useState(podcasts || []);
   const [categorySelected, setCategorySelected] = useState(null);
   const [textFilter, setTextFilter] = useState('');
   const [filters, setFilters] = useState({});
@@ -186,7 +186,7 @@ export const PodcastsByType = ({ podcasts, categories }) => {
           )}>
           Tous
         </button>
-        {categories.map((category) => (
+        {categories?.map((category) => (
           <button
             key={category.id}
             onClick={() => handleCategorySelected(category)}
@@ -194,7 +194,7 @@ export const PodcastsByType = ({ podcasts, categories }) => {
               styles['article_by_type__categories--category'],
               categorySelected?.id === category.id && styles['article_by_type__categories--category--active']
             )}>
-            {category.attributes.type}
+            {category?.attributes?.type}
           </button>
         ))}
       </div>

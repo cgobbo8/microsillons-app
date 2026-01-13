@@ -22,9 +22,14 @@ import { GalleryComponent } from "../../components/component/GalleryComponent";
 
 
 const Article = ({ article, categories }) => {
-  const imageUrl = getStrapiMedia(article.attributes.cover);
+  const imageUrl = getStrapiMedia(article?.attributes?.cover);
 
   console.log(article)
+
+  // Guard si article n'existe pas
+  if (!article?.attributes) {
+    return <div>Article non trouvé</div>;
+  }
 
   const { reinitTransition, backTo } = useContext(TransitionContext);
 
@@ -91,9 +96,9 @@ const Article = ({ article, categories }) => {
           <div className={styles.article__container__cover__bloc}>
             <span className={styles['article__container__cover__bloc__top']}>
               <h1 className={styles['article__container__cover__bloc__top--title']}>{article?.attributes?.titre}</h1>
-              <span className={styles['article__container__cover__bloc__top--date']}>Il y a <Moment fromNow ago locale="fr">{article.attributes.publishedAt}</Moment></span>
+              {article?.attributes?.publishedAt && <span className={styles['article__container__cover__bloc__top--date']}>Il y a <Moment fromNow ago locale="fr">{article.attributes.publishedAt}</Moment></span>}
             </span>
-            <div className={styles['article__container__cover__bloc--categories']}>{article.attributes?.podcast_types?.data.map(((type, index) => <span key={index} className={styles['article__container__cover__bloc--category']}>{type.attributes.type}</span>))}</div>
+            <div className={styles['article__container__cover__bloc--categories']}>{article?.attributes?.podcast_types?.data?.map(((type, index) => <span key={index} className={styles['article__container__cover__bloc--category']}>{type?.attributes?.type}</span>))}</div>
           </div>
           {/* <ImagePerso className={styles['article__container__cover--image']} image={article.attributes.cover} /> */}
         </div>
@@ -131,32 +136,57 @@ const Article = ({ article, categories }) => {
 };
 
 export async function getStaticPaths() {
-  const articlesRes = await fetchAPI("/articles", { fields: ["slug"] });
-
-  return {
-    paths: articlesRes.data.map((article) => ({
-      params: {
-        slug: article.attributes.slug
-      },
-    })),
-    fallback: "blocking",
-  };
+  try {
+    const articlesRes = await fetchAPI("/articles", { fields: ["slug"] });
+    return {
+      paths: (articlesRes.data || []).map((article) => ({
+        params: {
+          slug: article?.attributes?.slug || ''
+        },
+      })).filter(p => p.params.slug),
+      fallback: "blocking",
+    };
+  } catch (error) {
+    console.error('Error fetching article paths:', error);
+    return {
+      paths: [],
+      fallback: "blocking",
+    };
+  }
 }
 
 export async function getStaticProps({ params }) {
-  const articlesRes = await fetchAPI("/articles", {
-    filters: {
-      slug: params.slug,
-    },
-    populate: ["cover", "podcast_types", "auteur", "auteur.avatar", "sections", "sources", "gallerie"],
-    // populate : "*"
-  });
-  const categoriesRes = await fetchAPI("/podcast-types");
+  try {
+    const articlesRes = await fetchAPI("/articles", {
+      filters: {
+        slug: params.slug,
+      },
+      populate: ["cover", "podcast_types", "auteur", "auteur.avatar", "sections", "sources", "gallerie"],
+    }).catch(() => ({ data: [] }));
 
-  return {
-    props: { article: articlesRes.data[0], categories: categoriesRes },
-    revalidate: 100,
-  };
+    const categoriesRes = await fetchAPI("/podcast-types").catch(() => ({ data: [] }));
+
+    const article = articlesRes.data?.[0] || null;
+
+    if (!article) {
+      return {
+        notFound: true,
+      };
+    }
+
+    return {
+      props: {
+        article,
+        categories: categoriesRes.data || []
+      },
+      revalidate: 100,
+    };
+  } catch (error) {
+    console.error('Error fetching article:', error);
+    return {
+      notFound: true,
+    };
+  }
 }
 
 export default Article;

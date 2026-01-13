@@ -56,6 +56,7 @@ export const Layout = ({ children, live, planning, global }) => {
     }, [preventLayoutTransition]);
 
     const openPlanning = useCallback(() => {
+        if (!planning?.attributes?.planning?.data?.attributes) return;
         if (planning.attributes.planning.data.attributes.ext === '.pdf') {
             window.open(planning.attributes.planning.data.attributes.url, '_blank');
         } else {
@@ -98,7 +99,7 @@ export const Layout = ({ children, live, planning, global }) => {
             </Script>
 
             <div className={styles.layout__container}>
-                <Navbar openPlanning={openPlanning} openContact={openContact} />
+                <Navbar openPlanning={openPlanning} openContact={openContact} hasPlanning={!!planning?.attributes?.planning?.data} />
                 <span className={styles.hamb_menu}>
                     <Menu elastic>
                         <a id="home" className="menu-item" href="/">Accueil</a>
@@ -117,28 +118,30 @@ export const Layout = ({ children, live, planning, global }) => {
                 </main>
             </div>
 
+            {planning?.attributes?.planning?.data?.attributes?.url && (
             <div onClick={closePlanning}  className={`${styles.blur_overlay} ${planningOpen ? styles['blur_overlay--open'] : styles['blur_overlay--close']}`} >
                         <div  className={styles.planning__close} >
                             <CloseButton onClick={closePlanning} />
                         </div>
-                    
+
                     <span style={{position : 'absolute', top : 0, left : 0,width : '100%'}}>
                     <span className={`${styles['blur_overlay--planning']} ${planningOpen ? styles['blur_overlay--planning--open'] : styles['blur_overlay--planning--close']}`}>
 
                         <img className={styles['blur_overlay--planning--image']} src={planning.attributes.planning.data.attributes.url} />
                         </span>
                     </span>
-                    
+
 
             </div>
+            )}
             <div className={`${styles.blur_overlay} ${contactOpen ? styles['blur_overlay--open'] : styles['blur_overlay--close']}`} >
                 <div className={`${styles.contact} ${contactOpen ? styles['contact--open'] : styles['contact--close']}`} >
                     <div className={styles.contact__close} >
                         <CloseButton onClick={closeContact} />
                     </div>
+                    {global?.attributes?.contact && (
                     <div className={styles.contact__map}>
-                        <div className={styles['contact__map--embed']} dangerouslySetInnerHTML={{ __html: global.attributes.contact.adresse_google_map }}>
-                            {/* <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d9712.683838964076!2d1.4631214335537523!3d43.63572149049223!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xeff97bbf79e393a0!2sMicro%20Sillons!5e0!3m2!1sfr!2sfr!4v1655027247134!5m2!1sfr!2sfr" width="400" height="300" style={{border: "0"}} allowFullScreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> */}
+                        <div className={styles['contact__map--embed']} dangerouslySetInnerHTML={{ __html: global.attributes.contact.adresse_google_map || '' }}>
                         </div>
                         <div className={styles['contact__map__body']}>
                             <div className={styles['contact__map__body--address']}>
@@ -147,23 +150,24 @@ export const Layout = ({ children, live, planning, global }) => {
                                 <span>{global.attributes.contact.code_postal} {global.attributes.contact.ville}</span>
                             </div>
                             <div className={styles['contact__map__body--social']}>
-                                { global.attributes.reseaux.facebook && <SocialIcon target='_blank' rel="noreferrer" url={global.attributes.reseaux.facebook} />}
-                                { global.attributes.reseaux.youtube && <SocialIcon target='_blank' rel="noreferrer" url={global.attributes.reseaux.youtube} />}
-                                { global.attributes.reseaux.discord && <SocialIcon target='_blank' rel="noreferrer" url={global.attributes.reseaux.discord} />}
-                                { global.attributes.reseaux.twitter && <SocialIcon target='_blank' rel="noreferrer" url={global.attributes.reseaux.twitter} />}
-                                { global.attributes.reseaux.instagram && <SocialIcon target='_blank' rel="noreferrer" url={global.attributes.reseaux.instagram} />}
-                                { global.attributes.reseaux.mixlr && <SocialIcon target='_blank' rel="noreferrer" url={global.attributes.reseaux.mixlr} />}
-                                { global.attributes.reseaux.donation && <SocialIcon target='_blank' rel="noreferrer" url={global.attributes.reseaux.donation} />}
-                                { global.attributes.reseaux.soundcloud && <SocialIcon target='_blank' rel="noreferrer" url={global.attributes.reseaux.soundcloud} />}
+                                { global.attributes.reseaux?.facebook && <SocialIcon target='_blank' rel="noreferrer" url={global.attributes.reseaux.facebook} />}
+                                { global.attributes.reseaux?.youtube && <SocialIcon target='_blank' rel="noreferrer" url={global.attributes.reseaux.youtube} />}
+                                { global.attributes.reseaux?.discord && <SocialIcon target='_blank' rel="noreferrer" url={global.attributes.reseaux.discord} />}
+                                { global.attributes.reseaux?.twitter && <SocialIcon target='_blank' rel="noreferrer" url={global.attributes.reseaux.twitter} />}
+                                { global.attributes.reseaux?.instagram && <SocialIcon target='_blank' rel="noreferrer" url={global.attributes.reseaux.instagram} />}
+                                { global.attributes.reseaux?.mixlr && <SocialIcon target='_blank' rel="noreferrer" url={global.attributes.reseaux.mixlr} />}
+                                { global.attributes.reseaux?.donation && <SocialIcon target='_blank' rel="noreferrer" url={global.attributes.reseaux.donation} />}
+                                { global.attributes.reseaux?.soundcloud && <SocialIcon target='_blank' rel="noreferrer" url={global.attributes.reseaux.soundcloud} />}
                             </div>
                         </div>
 
                     </div>
+                    )}
                     <div className={styles.contact__sponsors}>
                         <div className={styles['contact__sponsors--partenaires']}>
                             <h3>Merci à tous nos partenaires</h3>
                             <ul>
-                                { global.attributes.financeurs.map((sponsor, index) => (
+                                { global?.attributes?.financeurs?.map((sponsor, index) => (
                                     <li className={styles['contact__sponsors--partenaire']} key={index}>
                                         <Link href={sponsor.url} target="_blank" ><a href={sponsor.url} target="_blank" rel="noreferrer">{sponsor.financeur}</a></Link>
                                     </li>
@@ -174,6 +178,8 @@ export const Layout = ({ children, live, planning, global }) => {
                             Site conçu par <a href="https://www.linkedin.com/in/corentin-gobbo-667b02187/" className="accent">Corentin Gobbo</a>
                         </div>
                     </div>
+                    {global?.attributes?.contact && (
+                    <>
                     <div className={styles.contact__telephone}>
                         <a className="link" href={`tel:${global.attributes.contact.telephone}`}>
                             {global.attributes.contact.telephone}
@@ -184,6 +190,8 @@ export const Layout = ({ children, live, planning, global }) => {
                             {global.attributes.contact.email}
                         </a>
                     </div>
+                    </>
+                    )}
                 </div>
             </div>
             

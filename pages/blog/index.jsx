@@ -10,7 +10,7 @@ const blog = ({ articlesRecents, articles, categories, auteurs, blog }) => {
 
   return (
     <div id='scrollableDiv'>
-      <Seo seo={blog.attributes.seo} />
+      <Seo seo={blog?.attributes?.seo} />
       <div className={styles.blog}>
         <section className={styles.blog__hero}>
           <div className={styles.blog__hero__most_recent}>
@@ -27,47 +27,58 @@ const blog = ({ articlesRecents, articles, categories, auteurs, blog }) => {
 }
 
 export async function getStaticProps() {
-  // Run API calls in parallel
-  const [articlesRecentsRes, articlesRes, categoriesRes, blogRes, auteursRes] = await Promise.all([
-    fetchAPI("/articles", { 
-      pagination: {
-        pageSize: 4
-      }, 
-      populate: "*",
-      sort: "publishedAt:DESC"
-     }),
-    fetchAPI("/articles", {
-      populate: "*", 
-      pagination: {
-        start: 0,
-        limit: 8
-      }, 
-      sort: "publishedAt:DESC" }),
-    fetchAPI("/podcast-types", { populate: "*" }),
-    fetchAPI("/blog", {
-      populate: {
-        hero: "*",
-        seo: { populate: "*" },
-      },
-    }),
-    fetchAPI("/auteurs", {
-      populate: "*",
-      filters : {
-        // check if author has at least one article using strapi api
-      }
-    }),
-  ]);
+  try {
+    const [articlesRecentsRes, articlesRes, categoriesRes, blogRes, auteursRes] = await Promise.all([
+      fetchAPI("/articles", {
+        pagination: {
+          pageSize: 4
+        },
+        populate: "*",
+        sort: "publishedAt:DESC"
+      }).catch(() => ({ data: [] })),
+      fetchAPI("/articles", {
+        populate: "*",
+        pagination: {
+          start: 0,
+          limit: 8
+        },
+        sort: "publishedAt:DESC"
+      }).catch(() => ({ data: [] })),
+      fetchAPI("/podcast-types", { populate: "*" }).catch(() => ({ data: [] })),
+      fetchAPI("/blog", {
+        populate: {
+          hero: "*",
+          seo: { populate: "*" },
+        },
+      }).catch(() => ({ data: { attributes: {} } })),
+      fetchAPI("/auteurs", {
+        populate: "*",
+      }).catch(() => ({ data: [] })),
+    ]);
 
-  return {
-    props: {
-      articlesRecents : articlesRecentsRes.data,
-      articles: articlesRes.data,
-      categories: categoriesRes.data,
-      blog: blogRes.data,
-      auteurs: auteursRes.data
-    },
-    revalidate: 100,
-  };
+    return {
+      props: {
+        articlesRecents: articlesRecentsRes.data || [],
+        articles: articlesRes.data || [],
+        categories: categoriesRes.data || [],
+        blog: blogRes.data || { attributes: {} },
+        auteurs: auteursRes.data || []
+      },
+      revalidate: 100,
+    };
+  } catch (error) {
+    console.error('Error fetching blog page data:', error);
+    return {
+      props: {
+        articlesRecents: [],
+        articles: [],
+        categories: [],
+        blog: { attributes: {} },
+        auteurs: []
+      },
+      revalidate: 100,
+    };
+  }
 }
 
 export default blog

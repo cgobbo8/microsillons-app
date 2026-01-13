@@ -5,23 +5,15 @@ import { useEffect, useState } from "react";
 import { getStrapiMedia } from "../../lib/media";
 
 const ImagePerso = ({ image, directUrl, classProp, contain = false }) => {
+  // Guard: if no image is provided, don't render anything
+  if (!image) {
+    return null;
+  }
 
-  // console.log(image);
-
-  
-  // const { alternativeText, width, height } = image?.data?.attributes || {};
-
-  // const [blurDataURL, setBlurDataURL] = useState(null);
-
-  // useEffect(() => {
-  //   const fetchBlur = async () => {
-  //     if (window) {
-  //       const { base64 } = await getPlaiceholder(getStrapiMedia(image));
-  //       setBlurDataURL(base64);
-  //     }
-  //   };
-  //   fetchBlur();
-  // })
+  // For non-direct URLs, check if the Strapi image data exists
+  if (!directUrl && !image?.data?.attributes?.url) {
+    return null;
+  }
 
   return (
     <>

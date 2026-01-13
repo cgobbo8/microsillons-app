@@ -2,14 +2,18 @@ import Link from 'next/link';
 import { Author } from './author';
 import styles from './AuthorBlog.module.scss';
 
-export const AuthorsBlog = ({ authors }) => {
+export const AuthorsBlog = ({ authors = [] }) => {
+  if (!authors || authors.length === 0) {
+    return null;
+  }
+
   return (
     <div className={styles.authors__component}>
       <h2 className={styles['authors--title']}>
         Les <span className={styles['authors--title--accent']}>auteur.e.s</span>
       </h2>
       <ul className={styles.authors}>
-        {authors.map((author) => author?.attributes?.articles?.data[0] && <Author key={author.id} author={author} />)}
+        {authors.map((author) => author?.attributes?.articles?.data?.[0] && <Author key={author.id} author={author} />)}
       </ul>
     </div>
   );

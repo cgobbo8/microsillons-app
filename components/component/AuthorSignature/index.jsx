@@ -7,14 +7,14 @@ import Link from "next/link";
 
 export const AuthorSignature = ({ author, article = null, isBlogPost = false }) => {
 
-    if (!author) {
+    if (!author?.data?.attributes) {
         return null;
     }
-        
+
     return (
         <div className={styles.author} >
             <div className={styles['author--picture']}>
-                {author.data.attributes.avatar && (
+                {author?.data?.attributes?.avatar && (
                     <ImagePerso
                     image={author?.data?.attributes?.avatar}
                     />

@@ -10,10 +10,23 @@ export const SoundCloudPlayer = () => {
 
     const { currentPodcast } = useContext(PodcastContext);
 
+    const podcastUrl = currentPodcast?.attributes?.podcast_url;
+
+    // Don't render if no valid URL
+    if (!podcastUrl || podcastUrl.trim() === '') {
+        return null;
+    }
+
+    // Verify it's a valid SoundCloud URL
+    if (!podcastUrl.includes('soundcloud.com')) {
+        console.warn('Invalid SoundCloud URL:', podcastUrl);
+        return null;
+    }
+
     return (
         <div className={styles.soundcloud__player}>
             <ReactPlayer
-                  url={currentPodcast.attributes.podcast_url}
+                  url={podcastUrl}
                   playing={true}
                   controls={true}
                   width='320px'
@@ -21,5 +34,5 @@ export const SoundCloudPlayer = () => {
               />
         </div>
     )
-    
+
 }

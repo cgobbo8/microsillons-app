@@ -8,23 +8,22 @@ import { Member } from "../component/Member";
 import { SerieComponent } from "../component/SerieComponent";
 
 
-export const CompagnonsSection = ({compagnons}) => {
+export const CompagnonsSection = ({compagnons = []}) => {
+    if (!compagnons || compagnons.length === 0) return null;
+
     return (
         <Section style={{display : 'flex', flexDirection : 'column', alignItems: 'center'}} >
             <SectionTitle text='Nos compagnons de ' accentText={`route`} />
             <Divider />
             <GridBloc fullWidth>
                 {
-                    compagnons.map(compagnon => {
+                    compagnons?.map(compagnon => {
                         return (
                             <Compagnon key={compagnon.id} compagnon={compagnon} />
                         )
                     })
                 }
             </GridBloc>
-
-            
-            {/* <ListBloc list={emissions.liste} /> */}
         </Section>
     )
 }

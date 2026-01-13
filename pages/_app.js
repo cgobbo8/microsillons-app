@@ -41,11 +41,23 @@ function MyApp({ Component, pageProps }) {
   )
 }
 
+// Helper pour fetch avec gestion d'erreur
+async function safeFetchAPI(path, params, defaultValue = null) {
+  try {
+    const res = await fetchAPI(path, params);
+    return res;
+  } catch (error) {
+    console.error(`Failed to fetch ${path}:`, error.message);
+    return { data: defaultValue };
+  }
+}
+
 MyApp.getInitialProps = async (ctx) => {
   // Calls page's `getInitialProps` and fills `appProps.pageProps`
   const appProps = await App.getInitialProps(ctx);
+
   // Fetch global site settings from Strapi
-  const globalRes = await fetchAPI("/global", {
+  const globalRes = await safeFetchAPI("/global", {
     populate: {
       favicon: "*",
       defaultSeo: {
@@ -64,34 +76,39 @@ MyApp.getInitialProps = async (ctx) => {
         populate: "*",
       }
     },
-  });
-  
+  }, { attributes: {} });
 
-  const liveRes = await fetchAPI("/live", {
+  const liveRes = await safeFetchAPI("/live", {
     populate: {
       live: "*",
     },
-  });
+  }, { attributes: {} });
 
-  const planningRes = await fetchAPI("/planning", {
+  const planningRes = await safeFetchAPI("/planning", {
     populate: {
       planning: "*",
     },
   });
 
-  const lastPodcastRes = await fetchAPI("/podcasts", {
-    populate: {
-      planning: "*",
-    },
+  const lastPodcastRes = await safeFetchAPI("/podcasts", {
+    populate: "*",
     pagination: {
       start: 0,
       limit: 1
     },
     sort: "publishedAt:DESC"
-  });
+  }, []);
 
   // Pass the data to our page via props
-  return { ...appProps, pageProps: { global: globalRes.data, live : liveRes.data.attributes, planning : planningRes.data, lastPodcast : lastPodcastRes.data[0] } };
+  return {
+    ...appProps,
+    pageProps: {
+      global: globalRes.data || { attributes: {} },
+      live: liveRes.data?.attributes || {},
+      planning: planningRes.data,
+      lastPodcast: lastPodcastRes.data?.[0] || null
+    }
+  };
 };
 
 export default MyApp

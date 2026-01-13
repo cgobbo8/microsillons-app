@@ -7,8 +7,8 @@ import { useState } from 'react';
 import { InfiniteArticles } from './InfiniteArticles';
 import { fetchAPI } from '../../../lib/api';
 
-export const ArticleByType = ({ articles, categories }) => {
-  const [articlesToShow, setArticlesToShow] = useState(articles);
+export const ArticleByType = ({ articles = [], categories = [] }) => {
+  const [articlesToShow, setArticlesToShow] = useState(articles || []);
   const [categorySelected, setCategorySelected] = useState(null);
   const [blogPostsLoading, setBlogPostsLoading] = useState(false);
 
@@ -56,7 +56,7 @@ export const ArticleByType = ({ articles, categories }) => {
           )}>
           Tous
         </button>
-        {categories.map((category) => (
+        {categories?.map((category) => (
           <button
             key={category.id}
             onClick={() => handleCategorySelected(category)}
@@ -64,7 +64,7 @@ export const ArticleByType = ({ articles, categories }) => {
               styles['article_by_type__categories--category'],
               categorySelected?.id === category.id && styles['article_by_type__categories--category--active']
             )}>
-            {category.attributes.type}
+            {category?.attributes?.type}
           </button>
         ))}
       </div>

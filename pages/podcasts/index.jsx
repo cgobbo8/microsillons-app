@@ -15,13 +15,14 @@ const Podcasts = ({page, podcasts, categories}) => {
     const { setCurrentPodcast } = useContext(PodcastContext);
 
     const handlePodcastClick = (podcast) => {
-      setCurrentPodcast(podcast.attributes.podcast_url);
-      // console.log(podcast);
+      if (podcast?.attributes?.podcast_url) {
+        setCurrentPodcast(podcast.attributes.podcast_url);
+      }
     }
 
     return (
         <div className={styles.podcast__container}>
-            <Seo seo={page.attributes.seo} favicon={page.attributes.favicon} />
+            <Seo seo={page?.attributes?.seo} favicon={page?.attributes?.favicon} />
       
             <PodcastsByType podcasts={podcasts} categories={categories} />
 
@@ -44,33 +45,45 @@ const Podcasts = ({page, podcasts, categories}) => {
 }
 
 export async function getStaticProps() {
-    const [pageRes, podcastsRes, categoriesRes] = await Promise.all([
-      fetchAPI("/podcast-page", {
-        populate: {
-          hero: "*",
-          seo: { populate: "*" },
-          favicon: { populate: "*" }
+    try {
+      const [pageRes, podcastsRes, categoriesRes] = await Promise.all([
+        fetchAPI("/podcast-page", {
+          populate: {
+            hero: "*",
+            seo: { populate: "*" },
+            favicon: { populate: "*" }
+          },
+        }).catch(() => ({ data: { attributes: {} } })),
+        fetchAPI("/podcasts", {
+          pagination: {
+            start: 0,
+            limit: 8
+          },
+          populate: "*",
+          sort: "publishedAt:DESC"
+        }).catch(() => ({ data: [] })),
+        fetchAPI("/podcast-types", { populate: "*" }).catch(() => ({ data: [] })),
+      ]);
+
+      return {
+        props: {
+          page: pageRes.data || { attributes: {} },
+          podcasts: podcastsRes.data || [],
+          categories: categoriesRes.data || [],
         },
-      }),
-      fetchAPI("/podcasts", { 
-        pagination: {
-          start: 0,
-          limit: 8
-        }, 
-        populate: "*",
-        sort: "publishedAt:DESC"
-       }),
-       fetchAPI("/podcast-types", { populate: "*" }),
-    ]);
-  
-    return {
-      props: {
-        page: pageRes.data,
-        podcasts: podcastsRes.data,
-        categories : categoriesRes.data,
-      },
-      revalidate: 100, 
-    };
+        revalidate: 100,
+      };
+    } catch (error) {
+      console.error('Error fetching podcast page data:', error);
+      return {
+        props: {
+          page: { attributes: {} },
+          podcasts: [],
+          categories: [],
+        },
+        revalidate: 100,
+      };
+    }
   }
 
 export default Podcasts

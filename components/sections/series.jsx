@@ -5,24 +5,21 @@ import { Section } from "../common/Section";
 import { SerieComponent } from "../component/SerieComponent";
 
 
-export const SeriesSection = ({seriesInfo, series}) => {
+export const SeriesSection = ({seriesInfo, series = []}) => {
 
     return (
         <Section>
-            <TitleTextBloc title={seriesInfo.titre} text={seriesInfo.texte} />
+            <TitleTextBloc title={seriesInfo?.titre} text={seriesInfo?.texte} />
             <Divider />
             <GridBloc>
                 {
-                    series.map(serie => {
+                    series?.map(serie => {
                         return (
                             <SerieComponent key={serie.id} serie={serie} />
                         )
                     })
                 }
             </GridBloc>
-
-            
-            {/* <ListBloc list={series.liste} /> */}
         </Section>
     )
 }
